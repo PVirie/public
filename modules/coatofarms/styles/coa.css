@@ -1,0 +1,1 @@
+svg{filter:drop-shadow(5px 5px 5px #1117);overflow:visible}svg path.glow{filter:drop-shadow(0 0 0 #fff7);transition:filter .3s ease-in}svg .active path.glow{filter:drop-shadow(0 0 40px #ffff);transition:filter .1s ease-out}svg path.glow:hover{filter:drop-shadow(0 0 40px #ffff);transition:filter .1s ease-out}
