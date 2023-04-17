@@ -1,0 +1,3 @@
+window.addEventListener("load",function(){function isUserInBangkokTimezone(){const timeZone=Intl.DateTimeFormat().resolvedOptions().timeZone;return timeZone==="Asia/Bangkok";}
+let show_romanticized_name=JSON.parse(localStorage.getItem("romanticized"))||false;if(show_romanticized_name){show_romanticized_name=Math.random()>0.5?true:false;}
+if(!isUserInBangkokTimezone()||show_romanticized_name){const element=document.querySelector("#virie-header");element.innerHTML='<span class="first-letter">P</span>atrick <span class="first-letter">V</span>irie';}else{const element=document.querySelector("#virie-header");element.innerHTML='<span class="first-letter">C</span>hatavut <span class="first-letter">V</span>iriyasuthee';}});
