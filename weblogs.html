@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0"><title>Virie's personal site</title><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><link rel=icon type=image/svg+xml href=./resources/Virie_symbol_2023.svg><link rel=stylesheet href=./styles/layout.css><link rel=stylesheet href=./styles/effect.css><link rel=stylesheet href=./styles/banner.css><link rel=stylesheet href=./styles/theme.css></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-45PD6BDYNZ"></script><script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "G-45PD6BDYNZ");
+    </script><body class=primary><div class="banner secondary"><div class=title><h1 id=virie-header class=relief></h1></div><div class="menu relief"><a href=./index.html>home</a><a href=./weblogs.html>weblogs</a><a href=./profile.html>profile</a><a href=./persona.html>persona</a></div></div><script>
+            const build_weblog_card = function (key, logs) {
+                const div = document.createElement("div");
+                div.classList.add("content");
+                const column = document.createElement("div");
+                column.classList.add("column");
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                const h2 = document.createElement("h2");
+                h2.textContent = key;
+                cell.appendChild(h2);
+                column.appendChild(cell);
+                div.appendChild(column);
+
+                const column2 = document.createElement("div");
+                column2.classList.add("column");
+                const cell2 = document.createElement("div");
+                cell2.classList.add("cell");
+                const ul = document.createElement("ul");
+                for (const log of logs) {
+                    const li = document.createElement("li");
+                    const a = document.createElement("a");
+                    a.href = log.link;
+                    a.textContent = log.title;
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                }
+                cell2.appendChild(ul);
+                column2.appendChild(cell2);
+                div.appendChild(column2);
+                return div;
+            };
+            window.addEventListener("load", () => {
+                const weblogs = [{"title": "A thought on progress", "date": "2023-05-04", "link": "./blogs/progress/index.html"}, {"title": "The reign of expectation terror", "date": "2023-04-05", "link": "./blogs/expectation/index.html"}, {"title": "Polynomial arithmetic as convolution", "date": "2023-04-05", "link": "./blogs/polynomial/index.html"}];
+                const bin = {};
+                for (const log of weblogs) {
+                    const date = new Date(log.date);
+                    // get year and month in this format: April, 2023
+                    const year = date.toLocaleString("en-US", { year: "numeric" });
+                    const month = date.toLocaleString("en-US", { month: "long" });
+                    const key = `${month}, ${year}`;
+                    bin[key] = [...(bin[key] || []), log];
+                }
+                const banner = document.querySelector(".banner");
+                let placeholder = banner;
+                for (const key in bin) {
+                    const logs = bin[key];
+                    const card = build_weblog_card(key, logs);
+                    placeholder.after(card);
+                    const hr = document.createElement("hr");
+                    hr.classList.add("thin");
+                    card.after(hr);
+                    placeholder = hr;
+                }
+            });
+        </script><script src=./scripts/active.js></script><script src=./scripts/viewer.js></script></body></html>
