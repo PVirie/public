@@ -6,7 +6,7 @@
         gtag("js", new Date());
 
         gtag("config", "G-45PD6BDYNZ");
-    </script><body class=primary><div class="banner secondary"><div class=title><h1 id=virie-header class=relief></h1></div><div class="menu relief"><a href=./index.html>home</a><a href=./weblogs.html>weblogs</a><a href=./profile.html>profile</a><a href=./persona.html>persona</a></div></div><script>
+    </script><body class=primary><div class="banner secondary"><div class=title><h1 id=virie-header class=relief></h1></div><div class="menu relief"><a href=./index.html>home</a><a href=./weblogs.html>weblogs</a><a href=./profile.html>profile</a><a href=./persona.html>persona</a></div></div><div class="footer secondary"><div class=copyright> Designed and developed by myself. &#169 2023 Virie. All Rights Reserved. </div></div><script>
             const build_weblog_card = function (key, logs) {
                 const div = document.createElement("div");
                 div.classList.add("content");
@@ -56,9 +56,10 @@
                     const card = build_weblog_card(key, logs);
                     placeholder.after(card);
                     const hr = document.createElement("hr");
-                    hr.classList.add("thin");
                     card.after(hr);
                     placeholder = hr;
                 }
+                // remove last hr
+                placeholder.remove();
             });
         </script><script src=./scripts/active.js></script><script src=./scripts/viewer.js></script></body></html>
