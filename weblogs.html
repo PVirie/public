@@ -39,7 +39,7 @@
                 return div;
             };
             window.addEventListener("load", () => {
-                const weblogs = [{"title": "A thought on progress", "date": "2023-05-04", "link": "./blogs/progress/index.html"}, {"title": "The reign of expectation terror", "date": "2023-04-05", "link": "./blogs/expectation/index.html"}, {"title": "Polynomial arithmetic as convolution", "date": "2023-04-05", "link": "./blogs/polynomial/index.html"}, {"title": "Philosophy of computer science: the dawn of thinking machines", "date": "2020-01-25", "link": "./blogs/history_cs/index.html"}];
+                const weblogs = [{"title": "A thought on progress", "date": "2023-05-04", "link": "./blogs/progress/index.html", "blog": "progress"}, {"title": "The reign of expectation terror", "date": "2023-04-05", "link": "./blogs/expectation/index.html", "blog": "expectation"}, {"title": "Polynomial arithmetic as convolution", "date": "2023-04-05", "link": "./blogs/polynomial/index.html", "blog": "polynomial"}, {"title": "Philosophy of computer science: the dawn of thinking machines", "date": "2020-01-25", "link": "./blogs/history_cs/index.html", "blog": "history_cs"}];
                 const bin = {};
                 for (const log of weblogs) {
                     const date = new Date(log.date);
