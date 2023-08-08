@@ -3,6 +3,7 @@ hide_suggest(){this.tag_suggest_dom.innerHTML="";this.tag_suggest_dom.style.disp
 add_items(items){for(const item of items)this.data.push(item);}
 get_selected(){return this.selected_data;}
 set_selected(tag){const idx=this.selected_data.indexOf(tag);if(idx>-1){return;}
-this.selected_data.push(tag);if(this.all_tick!=null)this.all_tick.checked=false;const tag_node=this.build_tag_dom(tag);tag_node.addEventListener("click",function(){const idx=this.selected_data.indexOf(tag);if(idx>-1){this.selected_data.splice(idx,1);}
-tag_node.remove();}.bind(this));this.tag_list_dom.appendChild(tag_node);}
+this.selected_data.push(tag);if(this.all_tick!=null)this.all_tick.checked=false;const tag_node=this.build_tag_dom(tag);const close_button=tag_node.querySelector(".close");if(close_button!=null){close_button.addEventListener("click",function(){const idx=this.selected_data.indexOf(tag);if(idx>-1){this.selected_data.splice(idx,1);}
+tag_node.remove();}.bind(this));}
+this.tag_list_dom.appendChild(tag_node);}
 clear_selected(){this.selected_data.splice(0,this.selected_data.length);this.tag_list_dom.innerHTML="";}}
