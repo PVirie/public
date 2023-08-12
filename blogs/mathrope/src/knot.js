@@ -9,4 +9,4 @@ break;}
 case"d":const d=match_valid(x,y+1,["|","+","%","L","J"]);if(d!==null){switch(d){case"|":next_section(x,y+1,"d");break;case"+":push_intersection(x,y+1,"o");next_section(x,y+1,"d");break;case"%":push_intersection(x,y+1,"u");next_section(x,y+1,"d");break;case"L":next_section(x,y+1,"r");break;case"J":next_section(x,y+1,"l");break;}
 break;}}};const start=find_start();next_section(start.x,start.y);this.symbols=symbols;this.intersections=intersections;this.bar_row_index=bar_row_index;this.trace=trace;this.trace_count=trace_count;}
 get_trace(x,y){if(this.trace[y]==null)return null;if(this.trace[y][x]==null)return null;return this.trace[y][x];}
-get_latex_string(){return this.symbols.map((d)=>`${d.alpha}^${d.index>=0?d.index:""}`).join(", ");}}
+get_latex_string(){return this.symbols.map((d)=>`${d.alpha}^${d.index >= 0 ? d.index : ""}`).join(", ");}}
