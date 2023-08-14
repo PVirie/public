@@ -1,3 +1,3 @@
-const bib_index={};const compile_citation=function(){const bib=document.querySelector(".bibliography");let index=0;for(const b of citation_blocks){const content=b.innerHTML;if(bib_index[content]==null){bib_index[content]=Object.keys(bib_index).length+1;}
-if(bib!=null){const li=document.createElement("li");li.innerHTML=bib_index[content]+". "+content;li.id=`cite-${index}`;bib.appendChild(li);b.addEventListener("click",function(){li.scrollIntoView();});}
-b.innerHTML=bib_index[content];index+=1;}};const citation_blocks=document.querySelectorAll(".cite");window.addEventListener("load",function(){compile_citation();});
+window.addEventListener("load",function(){const bib_index={};const bib=document.querySelector(".bibliography");let index=1;const citation_blocks=document.querySelectorAll(".cite");for(const b of citation_blocks){const content=b.innerHTML;const cite_id=`cite-${index}`;index+=1;if(bib_index[content]==null){bib_index[content]=Object.keys(bib_index).length+1;}
+if(bib!=null){const li=document.createElement("li");li.innerHTML=bib_index[content]+". "+content;li.id=cite_id;bib.appendChild(li);}
+const link_node=document.createElement("a");link_node.classList.add("cite");link_node.innerHTML=bib_index[content];link_node.href=`#${cite_id}`;b.replaceWith(link_node);}});
