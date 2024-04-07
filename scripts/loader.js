@@ -1,0 +1,1 @@
+const display_load=function(flag){const loading=document.querySelector("#loader");if(flag){loading.classList.remove("hide");}else{loading.classList.add("fade-out");setTimeout(()=>{loading.classList.add("hide");},1000);}};
