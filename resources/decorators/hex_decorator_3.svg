@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="-849.9456 182.636 177.6736 196.0236" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <g transform="matrix(1, 0, 0, 1, -803.5303344726562, 243.26063537597656)">
+    <path d="M 8.658 22.51 L 33.06 36.599 L 33.06 64.775 L 8.658 78.864 L -15.744 64.776 L -15.744 36.598 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 87.835624, 0.286021)" bx:shape="n-gon 8.658 50.687 28.177 28.177 6 0 1@d63086fd"/>
+    <path d="M 8.658 39.068 L 18.72 44.878 L 18.72 56.497 L 8.658 62.306 L -1.404 56.497 L -1.404 44.878 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 134.580322, -86.643229)" bx:shape="n-gon 8.658 50.687 11.619 11.619 6 0 1@f396daf1"/>
+    <path d="M 8.658 22.51 L 33.06 36.599 L 33.06 64.775 L 8.658 78.864 L -15.744 64.776 L -15.744 36.598 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 94.849693, -72.246852)" bx:shape="n-gon 8.658 50.687 28.177 28.177 6 0 1@d63086fd"/>
+    <path d="M 8.658 22.51 L 33.06 36.599 L 33.06 64.775 L 8.658 78.864 L -15.744 64.776 L -15.744 36.598 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 20.407225, 30.131967)" bx:shape="n-gon 8.658 50.687 28.177 28.177 6 0 1@d63086fd"/>
+    <path d="M 8.658 39.068 L 18.72 44.878 L 18.72 56.497 L 8.658 62.306 L -1.404 56.497 L -1.404 44.878 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 11.871185, 72.080365)" bx:shape="n-gon 8.658 50.687 11.619 11.619 6 0 1@f396daf1"/>
+    <path d="M 39.542 91.318 L 79.084 114.148 L 79.084 159.807 L 39.542 182.636 L 0 159.807 L 0 114.148 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 44.902718, -132.595016)" bx:shape="n-gon 39.542 136.977 45.659 45.659 6 0 1@52dc0b09"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="-182.636 -337.6001 196.0471 219.7547" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <g transform="matrix(1, 0, 0, 1, -117.41580200195301, -265.64987182617193)">
+    <path d="M 8.658 22.51 L 33.06 36.599 L 33.06 64.775 L 8.658 78.864 L -15.744 64.776 L -15.744 36.598 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 113.451072, -77.572429)" bx:shape="n-gon 8.658 50.687 28.177 28.177 6 0 1@d63086fd"/>
+    <path d="M 8.658 22.51 L 33.06 36.599 L 33.06 64.775 L 8.658 78.864 L -15.744 64.776 L -15.744 36.598 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 1.289701, 62.976339)" bx:shape="n-gon 8.658 50.687 28.177 28.177 6 0 1@d63086fd"/>
+    <path d="M 39.542 91.318 L 79.084 114.148 L 79.084 159.807 L 39.542 182.636 L 0 159.807 L 0 114.148 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 26.097782, -98.039871)" bx:shape="n-gon 39.542 136.977 45.659 45.659 6 0 1@52dc0b09"/>
+    <path d="M 8.658 40.307 L 17.647 45.497 L 17.647 55.877 L 8.658 61.067 L -0.331 55.877 L -0.331 45.497 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 74.255134, -90.540515)" bx:shape="n-gon 8.658 50.687 10.38 10.38 6 0 1@4679ea2c"/>
+    <path d="M 8.658 39.068 L 18.72 44.878 L 18.72 56.497 L 8.658 62.306 L -1.404 56.497 L -1.404 44.878 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 39.756994, 47.466687)" bx:shape="n-gon 8.658 50.687 11.619 11.619 6 0 1@f396daf1"/>
+    <path d="M 39.542 91.318 L 79.084 114.148 L 79.084 159.807 L 39.542 182.636 L 0 159.807 L 0 114.148 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 72.107984, -125.261299)" bx:shape="n-gon 39.542 136.977 45.659 45.659 6 0 1@52dc0b09"/>
+    <path d="M 39.542 91.318 L 79.084 114.148 L 79.084 159.807 L 39.542 182.636 L 0 159.807 L 0 114.148 Z" style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 4px;" transform="matrix(0.866025, 0.5, -0.5, 0.866025, 27.097782, -151.033859)" bx:shape="n-gon 39.542 136.977 45.659 45.659 6 0 1@52dc0b09"/>
+  </g>
+</svg>
