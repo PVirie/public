@@ -57,5 +57,26 @@
                     placeholder.after(card);
                     placeholder = card;
                 }
+
+                const link_to_old_blog = `<div class="content">
+                    <div class="column">
+                        <div class="cell">
+                            <h2>2020-2008</h2>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="cell">
+                            <ul>
+                                <li><a href="https://pvirie.wordpress.com">My legacy blog posts</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> `;
+                // convert to dom
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(link_to_old_blog, "text/html");
+                const old_blog = doc.body.firstChild;
+                placeholder.after(old_blog);
+
             });
         </script><script src=./scripts/active.js></script><script src=./scripts/viewer.js></script></body></html>
