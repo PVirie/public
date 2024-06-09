@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0"><title>Virie's weblog</title><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><link rel=icon type=image/svg+xml href=../../resources/Virie_symbol_2023.svg><link rel=stylesheet href=../../styles/effect.css><link rel=stylesheet href=../../styles/banner.css><link rel=stylesheet href=../../styles/loader.css><link rel=stylesheet href=../../styles/theme.css><link rel=stylesheet href=../styles/layout.css><link rel=stylesheet href=../styles/theme.css><link rel=stylesheet href=./styles.css></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-45PD6BDYNZ"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-45PD6BDYNZ');
+</script><body class=neutral-2><div class="banner active secondary"><div class=title><h1 id=virie-header class=relief></h1></div><div class="menu relief"><a href=../../index.html>home</a><a href=../../weblogs.html>weblogs</a><a href=../../profile.html>profile</a><a href=../../persona.html>persona</a></div></div><div class="navigate tertiary silver-lining-bottom"><a href=../intelligence/index.html>&#60</a><a href=../../weblogs.html class=date>June 11th, 2024</a><a href=../wave_speed/index.html>&#62</a></div><div class="blog primary"><div class=content><h1>&#8747 The speed of wave and the speed of information</h1><hr><div class=kernel><h2> Kernel: </h2><ul><li> Speed of wave is not always speed of information. The former is how fast the wave geometry moves, the latter is how fast information is carried. </li></ul></div><p class=first> In this post, I would like to discuss the speed of wave and the speed of information, and why they are not always the same. This post is a follow up of a video from 3Blue1Brown that greatly explains the mathematics of how EM waves propagate<span class=cite>https://www.youtube.com/watch?v=KTzGBJPuJwM</span>. Although the distinction between those speeds is covered in the video, I realized that I did not fully understand the topic until I tried to simulate it. So I decided to write this post to share my understanding of the topic and the simulation I made. </p><h2>&#8706 Waves</h2><p> A wave is a mathematical construct that describes the movement of a quantity through space, time, or both. It is represented by a trigonometric function that describes the displacement of the wave at a given point in space and time. </p><div class=mathjax> $$ \begin{align*} w(t) &= A \cos(2\pi f t + \phi) \\ \end{align*} $$ </div><ul><li> \( w(t) \) is the displacement of the wave at time \( t \). </li><li> \( A \) is the amplitude of the wave. </li><li> \( f \) is the frequency of the wave. </li><li> \( \phi \) is the start phase of the wave. </li></ul> We call \( 2\pi f t + \phi \) altogether <i>the phase of the wave</i> at time \( t \). <p> A wave can be used to transmit information which are the parameters of the wave itself; i.e., the amplitude and the frequency. Given enough sample points, we can reconstruct the wave and extract these parameters. (Usually it's hard to extract the starting phase \( \phi \) of the wave unless we know exactly the start conditions of the wave.) </p><p> In real world, waves can appear in many forms, such as sound waves, water waves, and electromagnetic waves. Each form has different way to propagate and carry information. Here I will discuss the speed of information in mechanical and electromagnetic waves. </p><h2>&#8706 Mechanical waves</h2><p> Mechanical waves require mediums to carry information. It's by the change in displacement and the velocity of the units of the mediums that the waves propagate. Let's see how it works in the simulation below. </p><div class="mechanical wave-display"></div><div class=control-bar><span class="note button" id=play-note-c>C</span><span class="note button" id=play-note-d>D</span><span class="note button" id=play-note-e>E</span><span class="button material-symbols-outlined" id=run-mechanical-sim>play_circle</span><span class=cite>Do not forget to stop the simulations after playing with them to free up the resources.</span></div><p> To transmit information, a mechanical wave must move through mediums by making them oscillate. Different mediums have different properties that affect the speed of the wave. But usually it comes down to one property: how much one part of the medium can affect the other part. </p><p> For waves in liquids, the speeds of the waves are inversely proportional to the square root density of the liquids. If a liquid is denser, the wave will move slower. Because the denser the liquid, the harder it is to move the particles. However for sound waves, things appear inverse because the distance between the particles also matters. Sound waves travel faster in denser mediums because the particles are closer to each other; thus movement of one particle can affect the other particles faster. Imagine which of the following cases is less cumbersome: trying to move an object 2-3 meters away with blowing air or pushing it with a stick. </p><p> Because the oscillation of the mediums is what give out the wave, and hence the information. The speed of information is the same of the speed of the wave in the case of mechanical waves. </p><h2>&#8706 Electromagnetic waves</h2><p> While mechanical waves require mediums to carry information, EM waves are waves of pure force. It can propagate through the vacuum of space as explained by Maxwell's equations<span class=cite>https://en.wikipedia.org/wiki/Maxwell%27s_equations</span>. We only need charge particles for the force to act on to be able to observe the effect of the waves. </p><p> To simulate this kind of waves, we simply propagate the amplitude and the phase of an EM wave through the space. When these values meet a charge particle, the particle will move. You can see the effect of the wave in the simulation below. </p><div class="em wave-display"></div><div class=control-bar><span class="note button" id=play-em-note-c>C</span><span class="note button" id=play-em-note-d>D</span><span class="note button" id=play-em-note-e>E</span><span class="button material-symbols-outlined" id=run-em-sim>play_circle</span><span class=cite>Do not forget to stop the simulations after playing with them to free up the resources.</span></div><p> What appears to be a change in the speed of the wave is actually a change in the phase. When the wave passes through a group of charged particles, it may add or subtract the current phase before continuing. And when the phase is skipped, by keep tracking the crests of the wave, the wave appears to be faster. But what is actually faster is just the phase, not the speed of the phase propagation itself. </p><p> You can play with the simulation above again to see the effect of the phase change when the generated wave moves through different particles. Notice that though the wave appears to be faster, the <i>edge</i> of the wave, or the region where the wave begins or ends, is still moving at the same speed. And that is where we can see the propagation speed. </p><p> Even though the phase may sometimes appear to be faster, it carries no more information. Because a single wave can only carry two parameters, which are the frequency and the amplitude. And only the change in these parameters, via a different wave, that we can detect the information. Therefore, can an EM wave transmit information faster than the speed of light? The answer is no. The speed that phase and amplitude of an EM wave propagate is determined by and only by the speed of light. </p><hr><ul class=bibliography></ul></div></div><script src=../../scripts/loader.js></script><script src=../../libs/svg.min.js></script><script src=../scripts/bibliography.js></script><script src=../../scripts/viewer.js></script><script src=../../scripts/active.js></script><script src=../scripts/weblog.js></script><script src=./scripts/fnotes.js></script><script src=./scripts/waves.js></script><script>
+
+        const note_C = fnotes.create_sound(261.63);
+        const note_D = fnotes.create_sound(293.66);
+        const note_E = fnotes.create_sound(329.63);
+        
+        const setup_mechanical_wave_sim = function() {
+            const mediums = [
+                {
+                    aps: 0.25*0.25,
+                    lb: 0.5,
+                    rb: 1.0,
+                    cls: "slow"
+                }
+            ]
+
+            const control = waves.draw_mechanical_graphic(document.querySelector(".mechanical"), mediums);
+
+            const start_stop_mechanical_sim = function(start) {
+                const button = document.querySelector("#run-mechanical-sim");
+                if ((start != null && start) || (start == null && !control.is_running())) {
+                    control.start();
+                    button.innerHTML = "pause_circle";
+                    button.classList.add("toggled");
+                }else if ((start != null && !start) || (start == null && control.is_running())) {
+                    control.stop();
+                    button.innerHTML = "play_circle";
+                    button.classList.remove("toggled");
+                }
+            }
+
+            document.querySelector("#run-mechanical-sim").addEventListener("click", async function(e) {
+                start_stop_mechanical_sim();
+            });
+
+
+            let handler = null;
+            let start_time = null;
+
+            const incite = function(freq) {
+                start_time = new Date().getTime();
+                handler = setInterval(() => {
+                    const delta_time = new Date().getTime() - start_time;
+                    control.set_boundary(0, 0.75 * Math.sin(2*Math.PI*freq*delta_time/1000));
+                    if (freq*delta_time > 1000) {
+                        clearInterval(handler);
+                        control.set_boundary(0, 0);
+                    }
+                }, 30);
+                start_stop_mechanical_sim(true);
+            }
+
+            document.querySelector("#play-note-c").addEventListener("click", async function() {
+                note_C.play();
+                incite(0.5);
+            });
+
+            document.querySelector("#play-note-d").addEventListener("click", async function() {
+                note_D.play();
+                incite(1.0);
+            });
+
+            document.querySelector("#play-note-e").addEventListener("click", async function() {
+                note_E.play();
+                incite(2.0);
+            });
+        }
+
+
+        const setup_em_wave_sim = function() {
+            const material = [
+                {
+                    mps: 1, // mass per unit length
+                    polar: 0.04, // polar
+                    lb: 0.5,
+                    rb: 1.0,
+                    cls: "polar-particle"
+                }
+            ]
+
+            const control = waves.draw_em_graphic(document.querySelector(".em"), material);
+
+            const start_stop_em_sim = function(start) {
+                const button = document.querySelector("#run-em-sim");
+                if ((start != null && start) || (start == null && !control.is_running())) {
+                    control.start();
+                    button.innerHTML = "pause_circle";
+                    button.classList.add("toggled");
+                }else if ((start != null && !start) || (start == null && control.is_running())) {
+                    control.stop();
+                    button.innerHTML = "play_circle";
+                    button.classList.remove("toggled");
+                }
+            }
+
+            document.querySelector("#run-em-sim").addEventListener("click", async function(e) {
+                start_stop_em_sim();
+            });
+
+
+            let handler = null;
+            let start_time = null;
+
+            const incite = function(freq) {
+                start_time = new Date().getTime();
+                if (handler != null) {
+                    clearInterval(handler);
+                }
+                handler = setInterval(() => {
+                    const delta_time = new Date().getTime() - start_time;
+                    control.set_boundary(0, 2*Math.PI*freq*delta_time/1000, 0.1*freq);
+                    if (delta_time > 5000) {
+                        clearInterval(handler);
+                        handler = null;
+                        control.set_boundary(0, 0, 0);
+                    }
+                }, 30);
+                start_stop_em_sim(true);
+            }
+
+            document.querySelector("#play-em-note-c").addEventListener("click", async function() {
+                note_C.play();
+                incite(1.0);
+            });
+
+            document.querySelector("#play-em-note-d").addEventListener("click", async function() {
+                note_D.play();
+                incite(2.0);
+            });
+
+            document.querySelector("#play-em-note-e").addEventListener("click", async function() {
+                note_E.play();
+                incite(3.0);
+            });
+        }
+
+        window.addEventListener("load", async function () {
+            display_load(true);
+
+            setup_mechanical_wave_sim();
+            setup_em_wave_sim();
+
+            display_load(false);
+        });
+    </script></body></html>
