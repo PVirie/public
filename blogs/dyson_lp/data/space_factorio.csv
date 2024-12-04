@@ -59,7 +59,7 @@ Production science pack,3,,,,,21,Assembling machine (1.0),Electric furnace,1,Pro
 Battery,1,,,,,4,Chemical plant (1.0),Copper plate,1,Iron plate,1,Sulfuric acid,20,,,,,,
 Electric engine unit,1,,,,,10,Assembling machine (1.0),Electronic circuit,2,Engine unit,1,Lubricant,15,,,,,,
 Flying robot frame,1,,,,,20,Assembling machine (1.0),Battery,2,Electric engine unit,1,Electronic circuit,3,Steel plate,1,,,,
-Low density structure,1,,,,,20,Assembling machine (1.0),Copper plate,20,Plastic bar,5,Steel plate,2,,,,,,
+Low density structure,1,,,,,15,Assembling machine (1.0),Copper plate,20,Plastic bar,5,Steel plate,2,,,,,,
 Processing unit,1,,,,,10,Assembling machine (1.0),Advanced circuit,2,Electronic circuit,20,Sulfuric acid,5,,,,,,
 Utility science pack,3,,,,,21,Assembling machine (1.0),Flying robot frame,1,Low density structure,3,Processing unit,2,,,,,,
 ,,,,,,,,,,,,,,,,,,,
