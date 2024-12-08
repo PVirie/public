@@ -1,0 +1,26 @@
+ID,Speed factor,Base productivity,Power consumption,Power drain,Pollution,Module slots,Unlock planet,Fuel,Fuel consumption per sec
+Assembling machine 1,0.5,0,75.5,2.5,4,0,Nauvis,,
+Assembling machine 2,0.75,0,150,5,3,2,Nauvis,,
+Assembling machine 3,1.25,0,375,12.5,2,4,Nauvis,,
+Boiler,1,0,0,0,30,0,Nauvis,,
+Electric mining drill,0.5,0,90,0,10,3,Nauvis,,
+Big mining drill,2.5,0,300,0,40,4,Vulcanus,,
+Offshore pump,1,0,0,0,0,0,Nauvis,,
+Pumpjack,1,0,90,0,10,2,Nauvis,,
+Stone furnace,1,0,0,0,2,0,Nauvis,Coal,0.0225
+Steel furnace,2,0,0,0,4,0,Nauvis,Coal,0.0225
+Electric furnace,2,0,180,6,1,2,Nauvis,,
+Foundry,4,50,2500,83.33,6,4,Vulcanus,,
+Recycler,0.5,0,186,6,2,4,Fulgora,,
+Biochamber,2,50,0,0,-1,4,Gleba,Nutrients,0.25
+Chemical plant,1,0,210,7,4,3,Nauvis,,
+Centrifuge,1,0,350,11.6,4,2,Nauvis,,
+Electromagnetic plant,2,50,2000,66.67,4,5,Fulgora,,
+Cryogenic plant,2,0,1550,50,6,8,Aquilo,,
+Oil refinery,1,0,420,14,6,3,Nauvis,,
+Rocket silo,1,0,4000,0,0,4,Nauvis,,
+Spontaneity,1,0,0,0,0,0,Gleba,,
+Asteroid collector,1,0,72,12,0,0,Space platform,,
+Crusher,1,0,558,0,0,2,Space platform,,
+Agricultural tower,1,0,100,0,0,0,Gleba,,
+Scrap recycling,1,0,0,0,0,0,Fulgora,,
