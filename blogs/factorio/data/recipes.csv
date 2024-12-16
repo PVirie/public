@@ -239,3 +239,5 @@ Lithium,1,,,,,20,"Nauvis, Vulcanus, Fulgora, Gleba, Aquilo, Space platform",Cryo
 Lithium plate,1,,,,,6.4,"Nauvis, Vulcanus, Fulgora, Gleba, Aquilo, Space platform","Electric furnace, Stone furnace, Steel furnace",Lithium,1,,,,,,,,,,
 Cryogenic science pack,1,Fluoroketone (Hot),3,,,20,"Nauvis, Vulcanus, Fulgora, Gleba, Aquilo, Space platform",Cryogenic plant,Ice,3,Lithium plate,1,Fluoroketone (Cold),6,,,,,,
 Railgun ammo,1,,,,,25,"Nauvis, Vulcanus, Fulgora, Gleba, Aquilo, Space platform","Assembling machine 1, Assembling machine 2, Assembling machine 3",Steel plate,5,Explosives,2,Copper cable,10,,,,,,
+Quantum processor,1,Fluoroketone (Hot),5,,,30,"Aquilo, Space platform",Electromagnetic plant,Processing unit,1,Tungsten carbide,1,Superconductor,1,Carbon fiber,1,Lithium plate,2,Fluoroketone (Cold),10
+Fusion power cell,1,,,,,10,"Nauvis, Vulcanus, Fulgora, Gleba, Aquilo, Space platform",Cryogenic plant,Ammonia,100,Lithium plate,5,Holmium plate,1,,,,,,
