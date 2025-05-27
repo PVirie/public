@@ -58,8 +58,11 @@
             chart_group.polyline(point_xy_abs).addClass("abs");
         };
 
-        window.addEventListener("load", async function () {
+        window.addEventListener("DOMContentLoaded", function () {
             pvirie_dialogue.display_load(true);
+        });
+
+        window.addEventListener("load", async function () {
             const chart_zero_start_dom = document.querySelector("#chart-zero-start");
             const chart_random_start_dom = document.querySelector("#chart-random-start");
 

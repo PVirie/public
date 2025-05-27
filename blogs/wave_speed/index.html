@@ -142,9 +142,11 @@
             });
         }
 
-        window.addEventListener("load", async function () {
+        window.addEventListener("DOMContentLoaded", function () {
             pvirie_dialogue.display_load(true);
-
+        });
+        
+        window.addEventListener("load", async function () {
             setup_mechanical_wave_sim();
             setup_em_wave_sim();
 
