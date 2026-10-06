@@ -1,1177 +1,274 @@
-<!doctype html><html lang=en><meta charset=UTF-8><meta content="width=device-width,initial-scale=1.0"name=viewport><title>Euclid AI Geometric Research Avatar</title><script src=https://cdn.tailwindcss.com></script><link href=https://fonts.googleapis.com rel=preconnect><link href=https://fonts.gstatic.com rel=preconnect><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap"rel=stylesheet><style>:root {
-      --bg-paper: #fcfdfd;
-      --panel-bg: rgba(255, 255, 255, 0.94);
-      --panel-border: #e2e8f0;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --card-bg: #ffffff;
-      --card-sub: #f8fafc;
-      --c-teal: #0f4c5c;
-      --c-amber: #d99b26;
-      --c-cyan: #00a896;
-      --c-slate: #2d3748;
-      --c-core-fill: #ffffff;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-paper);
-      color: var(--text-main);
-      transition: background-color 0.35s ease, color 0.35s ease;
-    }
-    .font-mono-math {
-      font-family: 'Fira Code', monospace;
-    }
-    .concentric-rotor {
-      transform-box: fill-box;
-      transform-origin: center center;
-    }
-    @keyframes diagonalDashStream {
-      0% { stroke-dashoffset: 240; }
-      100% { stroke-dashoffset: 0; }
-    }
-    .anim-diag-stream {
-      animation: diagonalDashStream 4.8s linear infinite;
-    }
-    .anim-diag-stream-rev {
-      animation: diagonalDashStream 7.2s linear infinite reverse;
-    }
-    .dynamic-panel {
-      background-color: var(--panel-bg);
-      border-color: var(--panel-border);
-    }
-    .dynamic-card {
-      background-color: var(--card-bg);
-      border-color: var(--panel-border);
-    }
-    .dynamic-subcard {
-      background-color: var(--card-sub);
-      border-color: var(--panel-border);
-    }
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(140, 140, 140, 0.25);
-      border-radius: 3px;
-    }</style><body class="h-screen w-screen overflow-hidden flex flex-col antialiased selection:bg-teal-500/20"><header class="h-14 border-b dynamic-panel backdrop-blur-md px-5 flex items-center justify-between z-20 shrink-0 shadow-xs"><div class="flex items-center space-x-3"><div class="w-8 h-8 rounded-lg bg-teal-800 text-amber-300 flex items-center justify-center font-mono text-sm font-bold shadow-xs">ΣΔ</div><div><h1 class="text-sm font-semibold tracking-wide flex items-center gap-2"><span>EUCLID-AVATAR</span> <span class="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded border border-teal-500/30 text-teal-600 dark:text-teal-400 bg-teal-500/10">Research v2.0</span></h1><p class="text-[11px] opacity-70 font-mono">Mathematical Compass & Protractor Kinetic Visualizer</div></div><div class="flex items-center space-x-2.5 text-xs"><span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full dynamic-subcard border font-mono"> <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"id=header-status-indicator></span> <span id=header-status-text>STATUS: IDLE</span> </span><button class="px-3 py-1.5 rounded-lg border border-teal-500/30 bg-teal-500/10 hover:bg-teal-500/20 text-teal-700 dark:text-teal-300 font-medium flex items-center gap-1.5 transition-colors"id=about-btn><svg class="w-3.5 h-3.5"viewbox="0 0 24 24"fill=none stroke=currentColor><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"stroke-linecap=round stroke-linejoin=round stroke-width=2></path></svg> <span>Concept</span></button><button class="px-3 py-1.5 rounded-lg border dynamic-subcard font-medium flex items-center gap-1.5 transition-colors"id=toggle-panel-btn><svg class="w-4 h-4 opacity-70"viewbox="0 0 24 24"fill=none stroke=currentColor><path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"stroke-linecap=round stroke-linejoin=round stroke-width=2></path></svg> <span>Parameters</span></button></div></header><main class="flex-1 flex overflow-hidden relative"><div class="flex-1 flex flex-col items-center justify-center relative p-4 sm:p-6 select-none overflow-hidden"id=stage-container><div class="absolute top-4 left-5 font-mono-math text-[11px] opacity-60 pointer-events-none space-y-1"><div>PIVOT ORIGIN: <span class="text-teal-500 font-medium">O(0.00, 0.00) LOCKED</span></div><div>OUTER PROTRACTOR: <span class="text-teal-500 font-medium"id=telemetry-angle>000.00°</span></div><div>ANGULAR VELOCITY: <span class=text-amber-500 id=telemetry-flux>0.824 rad/s</span></div></div><div class="absolute top-4 right-5 font-mono-math text-[11px] opacity-60 pointer-events-none text-right space-y-1"><div>SATELLITE MOTION: <span class="text-teal-500 font-medium"id=telemetry-mode>SWAY / RESPIRING</span></div><div>VECTOR DEFLECTION: <span class="text-teal-500 font-medium"id=telemetry-cursor>∠000.0°</span></div><div>NORMAL TRANSIT: <span class=opacity-80 id=telemetry-diagonal>±22.0 px • ⟂ active</span></div></div><svg class="absolute inset-0 w-full h-full pointer-events-none overflow-visible z-0"id=stage-bg-svg xmlns=http://www.w3.org/2000/svg><defs><lineargradient id=diagGradMain x1=100% x2=0% y1=0% y2=100%><stop offset=0% stop-color=var(--c-teal) stop-opacity=0.05 /><stop offset=35% stop-color=var(--c-teal) stop-opacity=0.4 /><stop offset=50% stop-color=var(--c-amber) stop-opacity=0.9 /><stop offset=65% stop-color=var(--c-teal) stop-opacity=0.4 /><stop offset=100% stop-color=var(--c-teal) stop-opacity=0.05 /></lineargradient><lineargradient id=diagGradSatellite x1=100% x2=0% y1=0% y2=100%><stop offset=0% stop-color=var(--c-cyan) stop-opacity=0 /><stop offset=30% stop-color=var(--c-cyan) stop-opacity=0.35 /><stop offset=50% stop-color=var(--c-teal) stop-opacity=0.6 /><stop offset=70% stop-color=var(--c-cyan) stop-opacity=0.35 /><stop offset=100% stop-color=var(--c-cyan) stop-opacity=0 /></lineargradient><lineargradient id=perpGradNormal x1=0% x2=100% y1=0% y2=100%><stop offset=0% stop-color=var(--c-teal) stop-opacity=0 /><stop offset=25% stop-color=var(--c-teal) stop-opacity=0.8 /><stop offset=50% stop-color=var(--c-amber) stop-opacity=0.95 /><stop offset=75% stop-color=var(--c-teal) stop-opacity=0.8 /><stop offset=100% stop-color=var(--c-teal) stop-opacity=0 /></lineargradient></defs><g id=diagonal-constellation-group><g id=perp-lines-container></g><g id=diag-sat-1-grp><line class=anim-diag-stream id=diag-sat-1-line opacity=0.85 stroke=url(#diagGradSatellite) stroke-dasharray=8,6 stroke-width=1.3 x1=1400 x2=-1400 y1=-1400 y2=1400 /><g id=diag-sat-1-notches opacity=0.4 stroke=var(--c-teal) stroke-width=1></g></g><g id=diag-main-grp><line opacity=0.22 stroke=var(--c-teal) stroke-width=0.9 x1=1400 x2=-1400 y1=-1400 y2=1400 /><line stroke-dasharray="80 18 12 18 36 18"class=anim-diag-stream opacity=0.95 stroke=url(#diagGradMain) stroke-linecap=round stroke-width=1.8 x1=1400 x2=-1400 y1=-1400 y2=1400 /><g id=diag-main-cross-ticks opacity=0.6 stroke=var(--c-teal) stroke-width=1.1></g><g class="font-mono-math text-[9px] select-none"fill=var(--c-teal) id=diag-main-labels opacity=0.75></g></g><g id=diag-sat-2-grp><line class=anim-diag-stream-rev id=diag-sat-2-line opacity=0.8 stroke=url(#diagGradSatellite) stroke-dasharray=14,8,4,8 stroke-width=1.3 x1=1400 x2=-1400 y1=-1400 y2=1400 /><g id=diag-sat-2-notches opacity=0.5 stroke=var(--c-amber) stroke-width=1></g></g></g></svg><div class="relative flex items-center justify-center cursor-crosshair z-10"id=avatar-wrapper><svg class="w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] md:w-[490px] md:h-[490px] drop-shadow-sm transition-all duration-300"viewbox="-300 -300 600 600"id=avatar-svg><circle cx=0 cy=0 fill=none opacity=0.3 r=285 stroke=var(--c-teal) stroke-dasharray=2,8 stroke-width=0.65 /><g id=rotor-outer-protractor><circle cx=0 cy=0 fill=none r=275 stroke=var(--c-teal) stroke-width=1.6 /><circle cx=0 cy=0 fill=none r=255 stroke=var(--c-teal) stroke-width=0.8 /><circle cx=0 cy=0 fill=none r=244 stroke=var(--c-teal) stroke-dasharray=2,4 stroke-width=0.6 /><g fill=var(--c-teal) id=protractor-ticks stroke=var(--c-teal)></g></g><g id=rotor-segmented-gears><circle stroke-dasharray="140 38 68 38"cx=0 cy=0 fill=none opacity=0.85 r=236 stroke=var(--c-teal) stroke-linecap=round stroke-width=6.5 /><circle cx=0 cy=0 fill=none opacity=0.9 r=226 stroke=var(--c-teal) stroke-dasharray=5,4 stroke-width=1.2 /><circle cx=0 cy=0 fill=none r=218 stroke=var(--c-teal) stroke-width=0.6 /></g><g id=rotor-chevron-ring><circle cx=0 cy=0 fill=none r=195 stroke=var(--c-amber) stroke-width=2.2 /><circle cx=0 cy=0 fill=none r=162 stroke=var(--c-amber) stroke-dasharray=3,3 stroke-width=1 /><g fill=var(--c-amber) id=chevrons-container stroke=var(--c-amber)></g><g id=gold-radial-rays opacity=0.75 stroke=var(--c-amber)></g></g><g id=rotor-inner-protractor><circle cx=0 cy=0 fill=none r=142 stroke=var(--c-cyan) stroke-width=2 /><circle cx=0 cy=0 fill=none r=126 stroke=var(--c-cyan) stroke-dasharray=4,3 stroke-width=0.8 /><g class="font-mono-math text-[9px] font-semibold"fill=var(--c-cyan) id=inner-protractor-labels></g></g><g id=layer-tracker-vector><line opacity=0.95 stroke=var(--c-amber) stroke-dasharray=6,4 stroke-width=1.4 x1=0 x2=0 y1=0 y2=-255 /><path d="M -5,-240 L 0,-255 L 5,-240"fill=none stroke=var(--c-amber) stroke-linejoin=round stroke-width=2 /><circle cx=0 cy=-255 fill=none r=4 stroke=var(--c-teal) stroke-width=1.2 /><text class="font-mono-math text-[10px] font-medium"fill=var(--c-amber) x=8 y=-245>V_dir</text></g><g class="font-mono-math select-none"id=layer-greek-symbols opacity=0.85><text class="text-sm font-semibold"fill=var(--c-teal) x=190 y=165>π</text><text class="text-xs font-semibold"fill=var(--c-teal) x=-195 y=-120>φ</text><text class=text-[10px] fill=var(--c-amber) x=-170 y=145>∢θ = 54.7°</text><text class="text-xs font-semibold"fill=var(--c-amber) x=160 y=-165>λ·N</text><circle cx=140 cy=-120 fill=none r=14 stroke=var(--c-teal) stroke-dasharray=3,3 stroke-width=0.8 /><line stroke=var(--c-teal) stroke-width=0.8 x1=126 x2=154 y1=-120 y2=-120 /><line stroke=var(--c-teal) stroke-width=0.8 x1=140 x2=140 y1=-134 y2=-106 /></g><g id=rotor-core><circle cx=0 cy=0 fill=none id=core-pulse-circle r=74 stroke=var(--c-teal) stroke-dasharray=4,4 stroke-width=1 /><path class="transition-all duration-300"fill=var(--c-core-fill) id=core-polygon stroke=var(--c-amber) stroke-linejoin=round stroke-width=2.2 /><g id=core-aux-geometry></g><circle cx=0 cy=0 fill=none id=core-center-disk opacity=0.8 r=34 stroke=var(--c-teal) stroke-width=1 /><text class="font-mono-math text-base font-bold tracking-widest pointer-events-none"dominant-baseline=central fill=var(--c-amber) id=core-text text-anchor=middle x=0 y=2>ΣΔ</text></g><circle cx=0 cy=0 fill=var(--c-teal) r=2.5 /><g class=pointer-events-none id=layer-state-fx><circle cx=0 cy=0 fill=none id=fx-ripple-1 opacity=0 r=78 stroke=var(--c-amber) stroke-width=1.5 /><circle cx=0 cy=0 fill=none id=fx-ripple-2 opacity=0 r=78 stroke=var(--c-teal) stroke-width=1.5 /></g></svg><div class="absolute pointer-events-none rounded-full border border-teal-500/20 w-[96%] h-[96%] opacity-0 transition-opacity duration-300"id=hover-reticle></div></div><div class="mt-7 flex flex-wrap items-center justify-center gap-2 z-10 dynamic-panel backdrop-blur-md p-1.5 rounded-xl border shadow-xs"><button class="state-pill active px-3.5 py-1.5 rounded-lg text-xs font-medium font-mono transition-all bg-teal-800 text-white shadow-xs"data-state=idle>● IDLE (Sway)</button><button class="state-pill px-3.5 py-1.5 rounded-lg text-xs font-medium font-mono opacity-80 hover:opacity-100 hover:bg-slate-500/10 transition-all"data-state=thinking>◈ ANALYZING (Inflow)</button><button class="state-pill px-3.5 py-1.5 rounded-lg text-xs font-medium font-mono opacity-80 hover:opacity-100 hover:bg-slate-500/10 transition-all"data-state=speaking>▲ SYNTHESIS (Outward)</button><button class="state-pill px-3.5 py-1.5 rounded-lg text-xs font-medium font-mono opacity-80 hover:opacity-100 hover:bg-slate-500/10 transition-all"data-state=calibrating>■ CALIBRATE (Hold)</button></div><div class="absolute bottom-5 left-5 hidden lg:flex items-center gap-3 p-2.5 rounded-xl dynamic-panel border shadow-xs backdrop-blur-sm z-10"><div class="relative w-11 h-11 rounded-full border border-teal-500/30 overflow-hidden dynamic-subcard flex items-center justify-center p-0.5"><svg class="w-full h-full"viewbox="-300 -300 600 600"id=mini-avatar-svg></svg></div><div class="text-left pr-2"><div class="text-xs font-semibold flex items-center gap-1.5"><span>Euclid Assistant</span><span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span></div><p class="text-[11px] opacity-70 font-mono"id=mini-chat-status>Ready to formulate theorem...</div></div></div><aside class="w-80 md:w-96 border-l dynamic-panel backdrop-blur-md flex flex-col z-20 transition-all duration-300 transform translate-x-0 overflow-y-auto shrink-0"id=config-panel><div class="p-4 border-b border-inherit flex items-center justify-between"><div><h2 class="text-sm font-bold uppercase tracking-wider">Avatar Parameters</h2><p class="text-xs opacity-60 font-mono mt-0.5">Euclidean Kinematics & Palettes</div><button class="p-1 rounded-md opacity-60 hover:opacity-100 lg:hidden"id=close-panel-btn><svg class="w-5 h-5"viewbox="0 0 24 24"fill=none stroke=currentColor><path d="M6 18L18 6M6 6l12 12"stroke-linecap=round stroke-linejoin=round stroke-width=2></path></svg></button></div><div class="p-4 space-y-5 flex-1 text-xs"><div><label class="block font-semibold uppercase tracking-wider opacity-80 mb-2 font-mono text-[11px]">Color Themes (Light & Dark)</label><div class="grid grid-cols-2 gap-2"id=palette-buttons><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=blueprint><span class="w-3.5 h-3.5 rounded-full bg-[#0f4c5c] ring-1 ring-white/50 shrink-0"></span> <span class="font-medium text-[11px] truncate">Euclid Teal</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=cad><span class="w-3.5 h-3.5 rounded-full bg-[#1e40af] ring-1 ring-white/50 shrink-0"></span> <span class="font-medium text-[11px] truncate">Cyan Draft</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=solar><span class="w-3.5 h-3.5 rounded-full bg-[#b45309] ring-1 ring-white/50 shrink-0"></span> <span class="font-medium text-[11px] truncate">Solar Amber</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=mono><span class="w-3.5 h-3.5 rounded-full bg-[#27272a] ring-1 ring-white/50 shrink-0"></span> <span class="font-medium text-[11px] truncate">Slate Light</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=darkObsidian><span class="w-3.5 h-3.5 rounded-full bg-[#00f5d4] ring-1 ring-white/30 shrink-0"></span> <span class="font-medium text-[11px] truncate">Obsidian Neon (Dark)</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=darkMidnight><span class="w-3.5 h-3.5 rounded-full bg-[#38bdf8] ring-1 ring-white/30 shrink-0"></span> <span class="font-medium text-[11px] truncate">Midnight Deep (Dark)</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=darkCyber><span class="w-3.5 h-3.5 rounded-full bg-[#fbbf24] ring-1 ring-white/30 shrink-0"></span> <span class="font-medium text-[11px] truncate">Cyber Amber (Dark)</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=darkEmerald><span class="w-3.5 h-3.5 rounded-full bg-[#34d399] ring-1 ring-white/30 shrink-0"></span> <span class="font-medium text-[11px] truncate">Matrix Emerald (Dark)</span></button></div></div><div><label class="block font-semibold uppercase tracking-wider opacity-80 mb-2 font-mono text-[11px]">Central Euclidean Figure</label><div class="grid grid-cols-2 gap-2"id=core-shape-selector><button class="shape-btn active py-2.5 px-3 border border-teal-500/50 dynamic-subcard rounded-lg font-medium text-left transition-all"data-shape=reuleaux><div class="font-semibold text-[11px]">⌒ Reuleaux</div> <div class="text-[10px] opacity-60 font-mono mt-0.5">Constant curve</div></button><button class="shape-btn py-2.5 px-3 border border-inherit dynamic-card rounded-lg font-medium text-left transition-all"data-shape=cross><div class="font-semibold text-[11px]">✛ Graticule</div> <div class="text-[10px] opacity-60 font-mono mt-0.5">Survey crosshair</div></button><button class="shape-btn py-2.5 px-3 border border-inherit dynamic-card rounded-lg font-medium text-left transition-all"data-shape=vesica><div class="font-semibold text-[11px]">⬭ Vesica</div> <div class="text-[10px] opacity-60 font-mono mt-0.5">Euclidean lens</div></button><button class="shape-btn py-2.5 px-3 border border-inherit dynamic-card rounded-lg font-medium text-left transition-all"data-shape=tesseract><div class="font-semibold text-[11px]">⧉ Hypercube</div> <div class="text-[10px] opacity-60 font-mono mt-0.5">4D projection</div></button></div></div><div class=space-y-3><label class="block font-semibold uppercase tracking-wider opacity-80 font-mono text-[11px]">Kinetic Velocity & Satellites</label><div class="flex items-center justify-between opacity-70 font-mono"><span>Stream / Drift Velocity</span><span class=font-bold id=speed-val>1.0x</span></div><input class="w-full h-1.5 bg-slate-300 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-teal-600"id=slider-speed max=3.0 min=0.1 step=0.1 type=range value=1.0><div class="flex items-center justify-between opacity-70 font-mono pt-1"><span>Harmonic Respiration</span><span class=font-bold id=pulse-val>1.0x</span></div><input class="w-full h-1.5 bg-slate-300 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-teal-600"id=slider-pulse max=2.0 min=0 step=0.1 type=range value=1.0><div class="flex items-center justify-between opacity-70 font-mono pt-1"><span>Diagonal Satellite Margin</span><span class=font-bold id=diag-margin-val>22px</span></div><input class="w-full h-1.5 bg-slate-300 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-teal-600"id=slider-diag-margin max=44 min=10 step=1 type=range value=22></div><div><label class="block font-semibold uppercase tracking-wider opacity-80 mb-2 font-mono text-[11px]">Geometric Layer Visibility</label><div class=space-y-2><label class="flex items-center justify-between p-2 rounded-lg dynamic-subcard border cursor-pointer"><span>Diagonal Datum & Satellites</span> <input class="w-4 h-4 rounded text-teal-600 accent-teal-600"checked id=toggle-diagonals type=checkbox></label><label class="flex items-center justify-between p-2 rounded-lg dynamic-subcard border cursor-pointer"><span>Perpendicular Normal Streams (⟂)</span> <input class="w-4 h-4 rounded text-teal-600 accent-teal-600"checked id=toggle-perpendicular type=checkbox></label><label class="flex items-center justify-between p-2 rounded-lg dynamic-subcard border cursor-pointer"><span>Protractor Graduations (0°-360°)</span> <input class="w-4 h-4 rounded text-teal-600 accent-teal-600"checked id=toggle-ticks type=checkbox></label><label class="flex items-center justify-between p-2 rounded-lg dynamic-subcard border cursor-pointer"><span>Greek Symbols & Annotations</span> <input class="w-4 h-4 rounded text-teal-600 accent-teal-600"checked id=toggle-symbols type=checkbox></label><label class="flex items-center justify-between p-2 rounded-lg dynamic-subcard border cursor-pointer"><span>Cursor Tracking Needle</span> <input class="w-4 h-4 rounded text-teal-600 accent-teal-600"checked id=toggle-tracking type=checkbox></label></div></div><div class="pt-2 border-t border-inherit space-y-2"><label class="block font-semibold uppercase tracking-wider opacity-80 font-mono text-[11px]">Export Clean Coaxial SVG</label><div class="flex gap-2"><button class="flex-1 py-2 px-3 rounded-lg bg-teal-800 hover:bg-teal-700 text-white font-medium text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs"id=btn-copy-svg><svg class="w-3.5 h-3.5"viewbox="0 0 24 24"fill=none stroke=currentColor><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"stroke-linecap=round stroke-linejoin=round stroke-width=2></path></svg> <span>Copy Standalone SVG</span></button><button class="py-2 px-3 rounded-lg border dynamic-subcard hover:opacity-80 font-medium text-xs"id=btn-reset>Reset</button></div><div class="text-emerald-500 font-mono text-[10px] text-center hidden"id=copy-feedback>✓ Copied clean concentric SVG to clipboard!</div></div></div><div class="p-3 border-t border-inherit dynamic-subcard font-mono text-[10px] opacity-70 flex justify-between"><span>FPS: <b id=fps-counter>60</b></span><span>ORIGIN: (0,0) LOCKED</span></div></aside></main><div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 hidden opacity-0 transition-opacity duration-200"id=about-modal><div class="dynamic-panel rounded-2xl border max-w-2xl w-full max-h-[88vh] flex flex-col overflow-hidden transform scale-95 transition-transform duration-200"id=about-modal-box><div class="px-6 py-4 border-b border-inherit flex items-center justify-between dynamic-subcard"><div class="flex items-center space-x-2.5"><div class="w-7 h-7 rounded-md bg-teal-800 text-amber-300 flex items-center justify-center font-mono text-xs font-bold">ΣΔ</div><div><h3 class="text-sm font-bold">Kinematic Normal Motion System</h3><p class="text-[11px] opacity-70 font-mono">Dynamic AI Cognitive States</div></div><button class="p-1.5 rounded-lg opacity-60 hover:opacity-100 transition-colors"id=close-modal-btn><svg class="w-5 h-5"viewbox="0 0 24 24"fill=none stroke=currentColor><path d="M6 18L18 6M6 6l12 12"stroke-linecap=round stroke-linejoin=round stroke-width=2></path></svg></button></div><div class="px-6 py-5 overflow-y-auto space-y-4 text-xs opacity-80 leading-relaxed"><div><h4 class="font-mono uppercase tracking-wider font-semibold text-teal-600 dark:text-teal-400 text-[11px] mb-1">01. Perpendicular Lines Dynamic Behavior</h4><p>The perpendicular normal indicators ($\mathbf{n}$) respond dynamically to the assistant's cognitive state:<ul class="list-disc pl-4 space-y-1 mt-1 font-mono text-[11px]"><li><strong>IDLE:</strong> Lines sway back and forth harmonically along the diagonal line, smoothly fading out near extreme turns and fading in.<li><strong>ANALYZING:</strong> Continuous unidirectional stream with wrap-around respawn, depicting incoming data streams.<li><strong>SYNTHESIZING:</strong> Generated outwards from the avatar's center origin, illustrating outgoing information flow.<li><strong>CALIBRATING:</strong> Complete kinetic freeze of satellite lines with zero motion.</ul></div><div><h4 class="font-mono uppercase tracking-wider font-semibold text-teal-600 dark:text-teal-400 text-[11px] mb-1">02. Dual Architectural Themes</h4><p>Seamlessly toggle between daytime parchment drafting palettes and dark fluorescent laboratory themes while retaining mathematical coordinate precision.</div></div><div class="px-6 py-3.5 border-t border-inherit dynamic-subcard flex items-center justify-between"><span class="font-mono text-[10px] opacity-70">Euclid Assistant Spec</span><button class="px-4 py-1.5 rounded-lg bg-teal-800 hover:bg-teal-700 text-white font-medium text-xs transition-colors"id=modal-ok-btn>Got it</button></div></div></div><script>const PALETTES = {
-      // Light Palettes
-      blueprint: {
-        teal: '#0f4c5c',
-        amber: '#d99b26',
-        cyan: '#00a896',
-        slate: '#2d3748',
-        coreFill: '#ffffff',
-        paper: '#fcfdfd',
-        panelBg: 'rgba(255, 255, 255, 0.94)',
-        panelBorder: '#e2e8f0',
-        textMain: '#1e293b',
-        textMuted: '#64748b',
-        cardBg: '#ffffff',
-        cardSub: '#f8fafc',
-        isDark: false
-      },
-      cad: {
-        teal: '#1e40af',
-        amber: '#0284c7',
-        cyan: '#2563eb',
-        slate: '#0f172a',
-        coreFill: '#ffffff',
-        paper: '#f8fafc',
-        panelBg: 'rgba(255, 255, 255, 0.94)',
-        panelBorder: '#e2e8f0',
-        textMain: '#0f172a',
-        textMuted: '#64748b',
-        cardBg: '#ffffff',
-        cardSub: '#f1f5f9',
-        isDark: false
-      },
-      solar: {
-        teal: '#92400e',
-        amber: '#d97706',
-        cyan: '#047857',
-        slate: '#451a03',
-        coreFill: '#ffffff',
-        paper: '#fdfbf7',
-        panelBg: 'rgba(255, 255, 255, 0.94)',
-        panelBorder: '#fde68a',
-        textMain: '#451a03',
-        textMuted: '#78350f',
-        cardBg: '#ffffff',
-        cardSub: '#fef3c7',
-        isDark: false
-      },
-      mono: {
-        teal: '#27272a',
-        amber: '#52525b',
-        cyan: '#71717a',
-        slate: '#18181b',
-        coreFill: '#ffffff',
-        paper: '#fafafa',
-        panelBg: 'rgba(255, 255, 255, 0.94)',
-        panelBorder: '#e4e4e7',
-        textMain: '#18181b',
-        textMuted: '#71717a',
-        cardBg: '#ffffff',
-        cardSub: '#f4f4f5',
-        isDark: false
-      },
-      // Dark Palettes
-      darkObsidian: {
-        teal: '#00f5d4',
-        amber: '#fee440',
-        cyan: '#00bbf9',
-        slate: '#94a3b8',
-        coreFill: '#0b0f19',
-        paper: '#0b0f19',
-        panelBg: 'rgba(15, 23, 42, 0.92)',
-        panelBorder: 'rgba(51, 65, 85, 0.7)',
-        textMain: '#f8fafc',
-        textMuted: '#94a3b8',
-        cardBg: '#1e293b',
-        cardSub: '#0f172a',
-        isDark: true
-      },
-      darkMidnight: {
-        teal: '#38bdf8',
-        amber: '#f472b6',
-        cyan: '#818cf8',
-        slate: '#cbd5e1',
-        coreFill: '#030712',
-        paper: '#030712',
-        panelBg: 'rgba(17, 24, 39, 0.92)',
-        panelBorder: 'rgba(55, 65, 81, 0.7)',
-        textMain: '#f9fafb',
-        textMuted: '#9ca3af',
-        cardBg: '#1f2937',
-        cardSub: '#111827',
-        isDark: true
-      },
-      darkCyber: {
-        teal: '#2dd4bf',
-        amber: '#fbbf24',
-        cyan: '#f97316',
-        slate: '#e2e8f0',
-        coreFill: '#121214',
-        paper: '#121214',
-        panelBg: 'rgba(24, 24, 27, 0.92)',
-        panelBorder: 'rgba(63, 63, 70, 0.7)',
-        textMain: '#fafafa',
-        textMuted: '#a1a1aa',
-        cardBg: '#27272a',
-        cardSub: '#18181b',
-        isDark: true
-      },
-      darkEmerald: {
-        teal: '#34d399',
-        amber: '#a3e635',
-        cyan: '#22d3ee',
-        slate: '#d1fae5',
-        coreFill: '#061712',
-        paper: '#061712',
-        panelBg: 'rgba(6, 32, 24, 0.92)',
-        panelBorder: 'rgba(16, 78, 58, 0.7)',
-        textMain: '#ecfdf5',
-        textMuted: '#6ee7b7',
-        cardBg: '#092d21',
-        cardSub: '#062018',
-        isDark: true
-      }
-    };
-
-    const CORE_CONFIGS = {
-      'reuleaux': {
-        path: "M 0,-68 A 118,118 0 0,1 59,34 A 118,118 0 0,1 -59,34 A 118,118 0 0,1 0,-68 Z",
-        aux: `
-          <circle cx="0" cy="0" r="66" fill="none" stroke="var(--c-teal)" stroke-dasharray="3,3" stroke-width="0.8" opacity="0.6" />
-          <circle cx="0" cy="0" r="33" fill="none" stroke="var(--c-amber)" stroke-width="0.75" />
-        `,
-        text: 'ΣΔ'
-      },
-      'cross': {
-        path: `
-          M 0,-66 L 0,-18 
-          M 0,18 L 0,66 
-          M -66,0 L -18,0 
-          M 18,0 L 66,0
-        `,
-        aux: `
-          <line x1="-74" y1="0" x2="-66" y2="0" stroke="var(--c-teal)" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.7" />
-          <line x1="66" y1="0" x2="74" y2="0" stroke="var(--c-teal)" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.7" />
-          <line x1="0" y1="-74" x2="0" y2="-66" stroke="var(--c-teal)" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.7" />
-          <line x1="0" y1="66" x2="0" y2="74" stroke="var(--c-teal)" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.7" />
-
-          <circle cx="0" cy="0" r="18" fill="none" stroke="var(--c-amber)" stroke-width="1.6" />
-          <circle cx="0" cy="0" r="22" fill="none" stroke="var(--c-teal)" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.65" />
-
-          <polygon points="0,-7 7,0 0,7 -7,0" fill="none" stroke="var(--c-amber)" stroke-width="1.2" />
-
-          <line x1="-54" y1="-5" x2="-54" y2="5" stroke="var(--c-amber)" stroke-width="1.4" />
-          <line x1="-42" y1="-3" x2="-42" y2="3" stroke="var(--c-teal)" stroke-width="1" />
-          <line x1="-30" y1="-5" x2="-30" y2="5" stroke="var(--c-amber)" stroke-width="1.4" />
-          <line x1="30" y1="-5" x2="30" y2="5" stroke="var(--c-amber)" stroke-width="1.4" />
-          <line x1="42" y1="-3" x2="42" y2="3" stroke="var(--c-teal)" stroke-width="1" />
-          <line x1="54" y1="-5" x2="54" y2="5" stroke="var(--c-amber)" stroke-width="1.4" />
-
-          <line x1="-5" y1="-54" x2="5" y2="-54" stroke="var(--c-amber)" stroke-width="1.4" />
-          <line x1="-3" y1="-42" x2="3" y2="-42" stroke="var(--c-teal)" stroke-width="1" />
-          <line x1="-5" y1="-30" x2="5" y2="-30" stroke="var(--c-amber)" stroke-width="1.4" />
-          <line x1="-5" y1="30" x2="5" y2="30" stroke="var(--c-amber)" stroke-width="1.4" />
-          <line x1="-3" y1="42" x2="3" y2="42" stroke="var(--c-teal)" stroke-width="1" />
-          <line x1="-5" y1="54" x2="5" y2="54" stroke="var(--c-amber)" stroke-width="1.4" />
-        `,
-        text: '·'
-      },
-      'vesica': {
-        path: "M 0,-62 C 34,-35 48,0 48,0 C 48,0 34,35 0,62 C -34,35 -48,0 -48,0 C -48,0 -34,-35 0,-62 Z",
-        aux: `
-          <circle cx="-32" cy="0" r="54" fill="none" stroke="var(--c-teal)" stroke-dasharray="3,3" stroke-width="0.9" opacity="0.6" />
-          <circle cx="32" cy="0" r="54" fill="none" stroke="var(--c-teal)" stroke-dasharray="3,3" stroke-width="0.9" opacity="0.6" />
-          <line x1="0" y1="-62" x2="0" y2="62" stroke="var(--c-amber)" stroke-width="1.2" stroke-dasharray="2,3" />
-          <line x1="-48" y1="0" x2="48" y2="0" stroke="var(--c-teal)" stroke-width="1.2" />
-        `,
-        text: 'Ι·Α'
-      },
-      'tesseract': {
-        path: "M -48,-48 L 48,-48 L 48,48 L -48,48 Z",
-        aux: `
-          <rect x="-24" y="-24" width="48" height="48" fill="none" stroke="var(--c-amber)" stroke-width="1.6" />
-          <line x1="-48" y1="-48" x2="-24" y2="-24" stroke="var(--c-teal)" stroke-width="1.3" />
-          <line x1="48" y1="-48" x2="24" y2="-24" stroke="var(--c-teal)" stroke-width="1.3" />
-          <line x1="48" y1="48" x2="24" y2="24" stroke="var(--c-teal)" stroke-width="1.3" />
-          <line x1="-48" y1="48" x2="-24" y2="24" stroke="var(--c-teal)" stroke-width="1.3" />
-          <circle cx="0" cy="0" r="4" fill="none" stroke="var(--c-amber)" stroke-width="1.2" />
-        `,
-        text: '4D'
-      }
-    };
-
-    // Satellite perpendicular normal lines configuration
-    const PERP_LINES_DATA = [
-      { id: 'p1', uPhase: 0.05, speed: 0.045, baseSpan: 125, label: '⟂_01', style: 'vernier', dir: 1 },
-      { id: 'p2', uPhase: 0.22, speed: 0.052, baseSpan: 95,  label: 'dx/dy', style: 'dual-hairline', dir: -1 },
-      { id: 'p3', uPhase: 0.38, speed: 0.040, baseSpan: 135, label: 'NORM_01', style: 'bracket', dir: 1 },
-      { id: 'p4', uPhase: 0.55, speed: 0.048, baseSpan: 110, label: 'NORM_02', style: 'crosslet', dir: -1 },
-      { id: 'p5', uPhase: 0.72, speed: 0.055, baseSpan: 130, label: '⟂_02', style: 'gauge', dir: 1 },
-      { id: 'p6', uPhase: 0.88, speed: 0.042, baseSpan: 100, label: 'V_NORM', style: 'scanner', dir: -1 }
-    ];
-
-    const appState = {
-      status: 'idle',
-      palette: 'blueprint',
-      coreShape: 'reuleaux',
-      speedMultiplier: 1.0,
-      pulseAmp: 1.0,
-      diagMarginBase: 22,
-      showDiagonals: true,
-      showPerpendicular: true,
-      showTicks: true,
-      showSymbols: true,
-      showTracking: true,
-      
-      angles: {
-        outerProtractor: 0,
-        segmentedGears: 0,
-        chevronRing: 0,
-        innerProtractor: 0,
-        coreShape: 0
-      },
-      mouseAngleTarget: 0,
-      currentMouseAngle: 0,
-      waveTimer: 0,
-
-      // Smooth state weights for satellite motions: [idle, analyzing, synthesis, calibrating]
-      stateWeights: {
-        idle: 1.0,
-        thinking: 0.0,
-        speaking: 0.0,
-        calibrating: 0.0
-      },
-      perpRuntime: PERP_LINES_DATA.map((p, idx) => ({
-        s: (p.uPhase * 1500) - 750, // continuous physical coordinate along the diagonal
-        opacity: 0.8,
-        swayPhase: idx * 1.05       // individual phase tracking for organic idle motion
-      }))
-    };
-
-    // DOM Elements
-    const stageContainer = document.getElementById('stage-container');
-    const avatarWrapper = document.getElementById('avatar-wrapper');
-    const hoverReticle = document.getElementById('hover-reticle');
-    const svgAvatar = document.getElementById('avatar-svg');
-    const miniSvgAvatar = document.getElementById('mini-avatar-svg');
-    
-    const stageBgSvg = document.getElementById('stage-bg-svg');
-    const diagonalConstellationGroup = document.getElementById('diagonal-constellation-group');
-    const perpLinesContainer = document.getElementById('perp-lines-container');
-    const diagSat1Grp = document.getElementById('diag-sat-1-grp');
-    const diagSat2Grp = document.getElementById('diag-sat-2-grp');
-    const diagMainCrossTicks = document.getElementById('diag-main-cross-ticks');
-    const diagMainLabels = document.getElementById('diag-main-labels');
-    const diagSat1Notches = document.getElementById('diag-sat-1-notches');
-    const diagSat2Notches = document.getElementById('diag-sat-2-notches');
-    const telemetryDiagonal = document.getElementById('telemetry-diagonal');
-    const telemetryMode = document.getElementById('telemetry-mode');
-
-    const protractorTicksGroup = document.getElementById('protractor-ticks');
-    const chevronsGroup = document.getElementById('chevrons-container');
-    const goldRadialRaysGroup = document.getElementById('gold-radial-rays');
-    const innerLabelsGroup = document.getElementById('inner-protractor-labels');
-    const corePolygonPath = document.getElementById('core-polygon');
-    const coreAuxGeometry = document.getElementById('core-aux-geometry');
-    const coreText = document.getElementById('core-text');
-    const trackerVectorLayer = document.getElementById('layer-tracker-vector');
-    const fxRipple1 = document.getElementById('fx-ripple-1');
-    const fxRipple2 = document.getElementById('fx-ripple-2');
-    const corePulseCircle = document.getElementById('core-pulse-circle');
-
-    const rotorOuterProtractor = document.getElementById('rotor-outer-protractor');
-    const rotorSegmentedGears = document.getElementById('rotor-segmented-gears');
-    const rotorChevronRing = document.getElementById('rotor-chevron-ring');
-    const rotorInnerProtractor = document.getElementById('rotor-inner-protractor');
-    const rotorCore = document.getElementById('rotor-core');
-
-    const telemetryAngle = document.getElementById('telemetry-angle');
-    const telemetryFlux = document.getElementById('telemetry-flux');
-    const telemetryCursor = document.getElementById('telemetry-cursor');
-    const headerStatusIndicator = document.getElementById('header-status-indicator');
-    const headerStatusText = document.getElementById('header-status-text');
-    const miniChatStatus = document.getElementById('mini-chat-status');
-    const fpsCounter = document.getElementById('fps-counter');
-
-    function buildProtractorGeometry() {
-      // 1. Generate 360-degree ticks centered around (0, 0)
-      let ticksHTML = '';
-      for (let deg = 0; deg < 360; deg += 2) {
-        const isMajor = deg % 10 === 0;
-        const isSemiMajor = deg % 5 === 0 && !isMajor;
-        const tickLength = isMajor ? 12 : (isSemiMajor ? 8 : 4);
-        const strokeW = isMajor ? 1.4 : (isSemiMajor ? 0.9 : 0.6);
-        const rad = (deg * Math.PI) / 180;
-        const rOuter = 274;
-        const rInner = rOuter - tickLength;
-        
-        const x1 = (rOuter * Math.cos(rad)).toFixed(2);
-        const y1 = (rOuter * Math.sin(rad)).toFixed(2);
-        const x2 = (rInner * Math.cos(rad)).toFixed(2);
-        const y2 = (rInner * Math.sin(rad)).toFixed(2);
-
-        ticksHTML += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke-width="${strokeW}" opacity="${isMajor ? 0.9 : 0.6}" />`;
-
-        if (deg % 30 === 0) {
-          const rText = 249;
-          const tx = (rText * Math.cos(rad)).toFixed(2);
-          const ty = (rText * Math.sin(rad) + 3).toFixed(2);
-          ticksHTML += `<text x="${tx}" y="${ty}" text-anchor="middle" font-size="8" font-family="'Fira Code', monospace" font-weight="600" opacity="0.85">${deg}°</text>`;
-        }
-      }
-      protractorTicksGroup.innerHTML = ticksHTML;
-
-      // 2. Build 4 sets of 3 Arrow Chevrons at 0°, 90°, 180°, 270°
-      let chevronsHTML = '';
-      const angles = [0, 90, 180, 270];
-      angles.forEach(deg => {
-        for (let i = 0; i < 3; i++) {
-          const dist = 178 + i * 8;
-          chevronsHTML += `
-            <g transform="rotate(${deg}) translate(0, -${dist})">
-              <path d="M -8,0 L 0,-6 L 8,0 L 0,-2.5 Z" />
-            </g>
-          `;
-        }
-      });
-      chevronsGroup.innerHTML = chevronsHTML;
-
-      // 3. Gold Ring fine pitch rays around (0, 0)
-      let goldRaysHTML = '';
-      for (let a = 0; a < 360; a += 4) {
-        const rad = (a * Math.PI) / 180;
-        const x1 = (164 * Math.cos(rad)).toFixed(2);
-        const y1 = (164 * Math.sin(rad)).toFixed(2);
-        const x2 = (172 * Math.cos(rad)).toFixed(2);
-        const y2 = (172 * Math.sin(rad)).toFixed(2);
-        goldRaysHTML += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke-width="0.8" />`;
-      }
-      goldRadialRaysGroup.innerHTML = goldRaysHTML;
-
-      // 4. Inner Protractor numeric marks
-      const innerDegreeLabels = [
-        { deg: 20, val: "140" },
-        { deg: 75, val: "160" },
-        { deg: 120, val: "188" },
-        { deg: 165, val: "125" },
-        { deg: 215, val: "170" },
-        { deg: 260, val: "190" },
-        { deg: 310, val: "115" }
-      ];
-      let innerTextHTML = '';
-      innerDegreeLabels.forEach(item => {
-        const rad = (item.deg * Math.PI) / 180;
-        const tx = (115 * Math.cos(rad)).toFixed(2);
-        const ty = (115 * Math.sin(rad) + 3).toFixed(2);
-        innerTextHTML += `<text x="${tx}" y="${ty}" text-anchor="middle">${item.val}</text>`;
-      });
-      innerLabelsGroup.innerHTML = innerTextHTML;
-      
-      buildDiagonalDecorations();
-      buildPerpendicularNormalElements();
-      updateCoreShapePath(appState.coreShape);
-    }
-
-    function buildDiagonalDecorations() {
-      let ticksHTML = '';
-      let labelsHTML = '';
-      let sat1TicksHTML = '';
-      let sat2TicksHTML = '';
-
-      for (let s = -760; s <= 760; s += 40) {
-        if (Math.abs(s) < 270) continue;
-
-        const cx = -s * 0.7071;
-        const cy = s * 0.7071;
-
-        const pLen = (s % 120 === 0) ? 9 : 5;
-        const px1 = cx + pLen * 0.7071;
-        const py1 = cy + pLen * 0.7071;
-        const px2 = cx - pLen * 0.7071;
-        const py2 = cy - pLen * 0.7071;
-
-        ticksHTML += `<line x1="${px1.toFixed(1)}" y1="${py1.toFixed(1)}" x2="${px2.toFixed(1)}" y2="${py2.toFixed(1)}" />`;
-
-        if (s % 160 === 0) {
-          labelsHTML += `
-            <text x="${(cx + 12).toFixed(1)}" y="${(cy + 4).toFixed(1)}" transform="rotate(-45 ${cx.toFixed(1)},${cy.toFixed(1)})">
-              §_${Math.abs(s)}
-            </text>
-          `;
-        }
-
-        if (s % 80 === 0) {
-          sat1TicksHTML += `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="1.5" />`;
-          sat2TicksHTML += `<line x1="${(cx - 3).toFixed(1)}" y1="${(cy - 3).toFixed(1)}" x2="${(cx + 3).toFixed(1)}" y2="${(cy + 3).toFixed(1)}" />`;
-        }
-      }
-
-      diagMainCrossTicks.innerHTML = ticksHTML;
-      diagMainLabels.innerHTML = labelsHTML;
-      diagSat1Notches.innerHTML = sat1TicksHTML;
-      diagSat2Notches.innerHTML = sat2TicksHTML;
-      
-      updateDiagonalCenterPosition();
-    }
-
-    function buildPerpendicularNormalElements() {
-      let html = '';
-      PERP_LINES_DATA.forEach((item) => {
-        let internalDecor = '';
-
-        if (item.style === 'vernier') {
-          internalDecor = `
-            <line id="perp-extra1-${item.id}" x1="0" y1="0" x2="0" y2="0" stroke="var(--c-amber)" stroke-width="1.2" />
-            <line id="perp-extra2-${item.id}" x1="0" y1="0" x2="0" y2="0" stroke="var(--c-teal)" stroke-width="1.2" />
-            <line id="perp-extra3-${item.id}" x1="0" y1="0" x2="0" y2="0" stroke="var(--c-amber)" stroke-width="1.2" />
-          `;
-        } else if (item.style === 'bracket') {
-          internalDecor = `
-            <polyline id="perp-bracket1-${item.id}" points="" fill="none" stroke="var(--c-teal)" stroke-width="1.4" />
-            <polyline id="perp-bracket2-${item.id}" points="" fill="none" stroke="var(--c-amber)" stroke-width="1.4" />
-          `;
-        } else if (item.style === 'dual-hairline') {
-          internalDecor = `
-            <line id="perp-subline-${item.id}" x1="0" y1="0" x2="0" y2="0" stroke="var(--c-cyan)" stroke-width="0.9" stroke-dasharray="4,3" />
-          `;
-        } else if (item.style === 'gauge') {
-          internalDecor = `
-            <circle id="perp-gauge-center-${item.id}" cx="0" cy="0" r="3.2" fill="none" stroke="var(--c-amber)" stroke-width="1.3" />
-            <line id="perp-gauge-needle-${item.id}" x1="0" y1="0" x2="0" y2="0" stroke="var(--c-amber)" stroke-width="1.2" />
-          `;
-        }
-
-        html += `
-          <g id="perp-elem-${item.id}">
-            <line id="perp-line-${item.id}" x1="0" y1="0" x2="0" y2="0" stroke="url(#perpGradNormal)" stroke-width="1.6" stroke-linecap="round" />
-            <line id="perp-hairline-${item.id}" x1="0" y1="0" x2="0" y2="0" stroke="var(--c-teal)" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.65" />
-            ${internalDecor}
-            <circle id="perp-cap1-${item.id}" cx="0" cy="0" r="2.5" fill="var(--c-amber)" />
-            <circle id="perp-cap2-${item.id}" cx="0" cy="0" r="2.5" fill="var(--c-teal)" />
-            <line id="perp-cross1-${item.id}" x1="0" y1="0" x2="0" y2="0" stroke="var(--c-teal)" stroke-width="1" />
-            <line id="perp-cross2-${item.id}" x1="0" y1="0" x2="0" y2="0" stroke="var(--c-amber)" stroke-width="1" />
-            <text id="perp-text-${item.id}" x="0" y="0" class="font-mono-math text-[8px] font-semibold select-none" fill="var(--c-teal)" opacity="0.85">${item.label}</text>
-          </g>
-        `;
-      });
-      perpLinesContainer.innerHTML = html;
-    }
-
-    function updateDiagonalCenterPosition() {
-      const containerRect = stageContainer.getBoundingClientRect();
-      const avatarRect = avatarWrapper.getBoundingClientRect();
-
-      const centerX = (avatarRect.left + avatarRect.width / 2) - containerRect.left;
-      const centerY = (avatarRect.top + avatarRect.height / 2) - containerRect.top;
-
-      diagonalConstellationGroup.setAttribute('transform', `translate(${centerX.toFixed(1)}, ${centerY.toFixed(1)})`);
-    }
-
-    window.addEventListener('resize', updateDiagonalCenterPosition);
-
-    function applyPalette(themeKey) {
-      const theme = PALETTES[themeKey] || PALETTES.blueprint;
-      appState.palette = themeKey;
-      
-      const root = document.documentElement;
-      root.style.setProperty('--c-teal', theme.teal);
-      root.style.setProperty('--c-amber', theme.amber);
-      root.style.setProperty('--c-cyan', theme.cyan);
-      root.style.setProperty('--c-slate', theme.slate);
-      root.style.setProperty('--c-core-fill', theme.coreFill);
-      root.style.setProperty('--bg-paper', theme.paper);
-      root.style.setProperty('--panel-bg', theme.panelBg);
-      root.style.setProperty('--panel-border', theme.panelBorder);
-      root.style.setProperty('--text-main', theme.textMain);
-      root.style.setProperty('--text-muted', theme.textMuted);
-      root.style.setProperty('--card-bg', theme.cardBg);
-      root.style.setProperty('--card-sub', theme.cardSub);
-
-      if (theme.isDark) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-
-      document.querySelectorAll('#palette-buttons button').forEach(btn => {
-        if (btn.dataset.palette === themeKey) {
-          btn.classList.add('border-teal-500', 'border-2', 'ring-1', 'ring-teal-500/50');
-          btn.classList.remove('border-inherit');
-        } else {
-          btn.classList.remove('border-teal-500', 'border-2', 'ring-1', 'ring-teal-500/50');
-          btn.classList.add('border-inherit');
-        }
-      });
-      
-      syncMiniAvatar();
-    }
-
-    function updateCoreShapePath(shapeKey) {
-      appState.coreShape = shapeKey;
-      const config = CORE_CONFIGS[shapeKey] || CORE_CONFIGS['reuleaux'];
-      corePolygonPath.setAttribute('d', config.path);
-      coreAuxGeometry.innerHTML = config.aux;
-      coreText.textContent = config.text;
-
-      if (shapeKey === 'cross') {
-        corePolygonPath.setAttribute('fill', 'none');
-        corePolygonPath.setAttribute('stroke', 'var(--c-teal)');
-        corePolygonPath.setAttribute('stroke-width', '3.0');
-        corePolygonPath.setAttribute('stroke-linecap', 'square');
-        document.getElementById('core-center-disk').setAttribute('r', '22');
-        coreText.setAttribute('font-size', '14');
-        coreText.setAttribute('fill', 'var(--c-amber)');
-      } else {
-        corePolygonPath.setAttribute('fill', 'var(--c-core-fill)');
-        corePolygonPath.setAttribute('stroke', 'var(--c-amber)');
-        corePolygonPath.setAttribute('stroke-width', '2.2');
-        corePolygonPath.setAttribute('stroke-linecap', 'round');
-        document.getElementById('core-center-disk').setAttribute('r', '34');
-        coreText.setAttribute('font-size', '16');
-        coreText.setAttribute('fill', 'var(--c-amber)');
-      }
-
-      document.querySelectorAll('#core-shape-selector .shape-btn').forEach(btn => {
-        if (btn.dataset.shape === shapeKey) {
-          btn.classList.add('border-teal-500', 'border-2', 'ring-1', 'ring-teal-500/50');
-          btn.classList.remove('border-inherit');
-        } else {
-          btn.classList.remove('border-teal-500', 'border-2', 'ring-1', 'ring-teal-500/50');
-          btn.classList.add('border-inherit');
-        }
-      });
-
-      syncMiniAvatar();
-    }
-
-    function setAssistantState(newState) {
-      appState.status = newState;
-      
-      document.querySelectorAll('.state-pill').forEach(pill => {
-        if (pill.dataset.state === newState) {
-          pill.className = 'state-pill active px-3.5 py-1.5 rounded-lg text-xs font-medium font-mono transition-all bg-teal-800 text-white shadow-xs';
-        } else {
-          pill.className = 'state-pill px-3.5 py-1.5 rounded-lg text-xs font-medium font-mono opacity-80 hover:opacity-100 hover:bg-slate-500/10 transition-all';
-        }
-      });
-
-      const statusMap = {
-        idle: { label: 'STATUS: IDLE', color: 'bg-emerald-500', chat: 'Ready to formulate theorem...', mode: 'SWAY / RESPIRING' },
-        thinking: { label: 'STATUS: ANALYZING', color: 'bg-amber-500', chat: 'Computing differential topology...', mode: 'UNIDIRECTIONAL INFLOW' },
-        speaking: { label: 'STATUS: SYNTHESIS', color: 'bg-teal-500', chat: 'Transmitting research summary...', mode: 'OUTWARD GENERATION' },
-        calibrating: { label: 'STATUS: CALIBRATING', color: 'bg-rose-500', chat: 'Re-aligning Euclidean coordinate origin...', mode: 'LOCKED / STATIC HOLD' }
-      };
-
-      const info = statusMap[newState] || statusMap.idle;
-      headerStatusText.textContent = info.label;
-      headerStatusIndicator.className = `w-2 h-2 rounded-full ${info.color} animate-pulse`;
-      miniChatStatus.textContent = info.chat;
-      telemetryMode.textContent = info.mode;
-    }
-
-    function syncMiniAvatar() {
-      miniSvgAvatar.innerHTML = svgAvatar.innerHTML;
-    }
-
-    stageContainer.addEventListener('mousemove', (e) => {
-      const rect = avatarWrapper.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const dx = e.clientX - centerX;
-      const dy = e.clientY - centerY;
-      
-      let rad = Math.atan2(dy, dx);
-      let deg = rad * (180 / Math.PI) + 90;
-      if (deg < 0) deg += 360;
-      
-      appState.mouseAngleTarget = deg;
-      telemetryCursor.textContent = `∠${deg.toFixed(1).padStart(5, '0')}°`;
-    });
-
-    avatarWrapper.addEventListener('mouseenter', () => {
-      hoverReticle.style.opacity = '1';
-    });
-
-    avatarWrapper.addEventListener('mouseleave', () => {
-      hoverReticle.style.opacity = '0';
-      appState.mouseAngleTarget = 0;
-    });
-
-    stageContainer.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) {
-        const touch = e.touches[0];
-        const rect = avatarWrapper.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        let deg = Math.atan2(touch.clientY - centerY, touch.clientX - centerX) * (180 / Math.PI) + 90;
-        if (deg < 0) deg += 360;
-        appState.mouseAngleTarget = deg;
-      }
-    }, { passive: true });
-
-    let lastFrameTime = performance.now();
-    let frameCount = 0;
-    let fpsTimer = 0;
-
-    function animate(currentTime) {
-      const delta = Math.min((currentTime - lastFrameTime) / 1000, 0.1);
-      lastFrameTime = currentTime;
-      frameCount++;
-      fpsTimer += delta;
-
-      if (fpsTimer >= 1.0) {
-        fpsCounter.textContent = `${frameCount}`;
-        frameCount = 0;
-        fpsTimer = 0;
-      }
-
-      const speed = appState.speedMultiplier;
-      appState.waveTimer += delta * speed;
-      const angles = appState.angles;
-
-      // Update smooth state blending weights
-      const targetState = appState.status;
-      const blendRate = Math.min(delta * 4.0, 1.0); // smooth state transitions
-      ['idle', 'thinking', 'speaking', 'calibrating'].forEach(st => {
-        const target = (st === targetState) ? 1.0 : 0.0;
-        appState.stateWeights[st] += (target - appState.stateWeights[st]) * blendRate;
-      });
-
-      // 1. DIAGONAL 3-LINE SATELLITE PULSE
-      let pulseFreq = 1.6;
-      let pulseMag = 7.0;
-
-      if (appState.status === 'thinking') {
-        pulseFreq = 3.6;
-        pulseMag = 10.0;
-      } else if (appState.status === 'speaking') {
-        pulseFreq = 2.8;
-        pulseMag = 9.0;
-      } else if (appState.status === 'calibrating') {
-        pulseFreq = 0.8;
-        pulseMag = 4.0;
-      }
-
-      const currentMargin = appState.diagMarginBase + Math.sin(appState.waveTimer * pulseFreq) * pulseMag * appState.pulseAmp;
-      const offX = currentMargin * 0.7071;
-      const offY = currentMargin * 0.7071;
-
-      diagSat1Grp.setAttribute('transform', `translate(${offX.toFixed(2)}, ${offY.toFixed(2)})`);
-      diagSat2Grp.setAttribute('transform', `translate(${-offX.toFixed(2)}, ${-offY.toFixed(2)})`);
-      telemetryDiagonal.textContent = `±${currentMargin.toFixed(1)} px • ⟂ active`;
-
-      // 2. DYNAMIC PERPENDICULAR NORMAL LINES (Continuous Velocity & Zero Fast-Tracking)
-      if (appState.showPerpendicular) {
-        const sMin = -750;
-        const sMax = 750;
-        const sRange = sMax - sMin;
-
-        const wIdle = appState.stateWeights.idle;
-        const wThink = appState.stateWeights.thinking;
-        const wSpeak = appState.stateWeights.speaking;
-        const wCalib = appState.stateWeights.calibrating;
-
-        PERP_LINES_DATA.forEach((item, idx) => {
-          const rt = appState.perpRuntime[idx];
-
-          // Advance continuous sway cycle for idle
-          rt.swayPhase += delta * speed * 1.8;
-
-          // Compute instantaneous velocities for each action state:
-          // 2.2 Analyzing: steady downstream data velocity
-          const v_think = item.speed * 1800 * speed;
-
-          // 2.1 Idle: smooth back-and-forth velocity oscillating around the current position
-          const v_idle = Math.cos(rt.swayPhase) * 110 * speed;
-
-          // 2.3 Synthesis: continuous outward motion away from center (s = 0)
-          // If a line is at the center or positive, it flows positive; otherwise negative
-          const outwardDir = (rt.s === 0) ? item.dir : (rt.s > 0 ? 1 : -1);
-          const v_speak = outwardDir * item.speed * 1750 * speed;
-
-          // 2.4 Calibrating: zero motion (0 px/s)
-          const v_calib = 0;
-
-          // Weighted velocity blend: seamless transition with zero position snapping
-          const currentVelocity = (v_idle * wIdle) + (v_think * wThink) + (v_speak * wSpeak) + (v_calib * wCalib);
-
-          // Apply physical movement
-          rt.s += currentVelocity * delta;
-
-          // Boundary wrap-around handling:
-          if (wSpeak > 0.65) {
-            // In synthesis mode, lines wrap around toward the center origin
-            if (Math.abs(rt.s) > sMax) {
-              rt.s = (Math.random() * 60 - 30);
+<!doctype html><html lang=en><meta charset=UTF-8><meta content="width=device-width,initial-scale=1.0"name=viewport><title>Euclid AI Geometric Research Avatar</title><script src=https://cdn.tailwindcss.com></script><link href=https://fonts.googleapis.com rel=preconnect><link href=https://fonts.gstatic.com rel=preconnect><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap"rel=stylesheet><link href=./styles/avatar.css rel=stylesheet><style>:root {
+                --bg-paper: #fcfdfd;
+                --panel-bg: rgba(255, 255, 255, 0.94);
+                --panel-border: #e2e8f0;
+                --text-main: #1e293b;
+                --text-muted: #64748b;
+                --card-bg: #ffffff;
+                --card-sub: #f8fafc;
+                --c-teal: #0f4c5c;
+                --c-amber: #d99b26;
+                --c-cyan: #00a896;
+                --c-core-fill: #ffffff;
             }
-          } else {
-            // In normal stream modes, wrap between sMin and sMax smoothly
-            if (rt.s > sMax) rt.s = sMin + (rt.s - sMax);
-            if (rt.s < sMin) rt.s = sMax - (sMin - rt.s);
-          }
-
-          // Target Opacities:
-          // Analyzing: standard cosine window envelope fading at both diagonal extremities
-          const normU = (rt.s - sMin) / sRange;
-          const op_think = Math.sin(Math.max(0, Math.min(1, normU)) * Math.PI) * 0.95;
-
-          // Idle: fades out near zero-velocity turning points (when cos(swayPhase) approaches 0)
-          const swayFactor = Math.abs(Math.sin(rt.swayPhase));
-          const op_idle = Math.max(0.1, Math.pow(swayFactor, 0.8) * 0.9);
-
-          // Synthesis: starts dim near origin, brightens mid-trajectory, fades out at ends
-          const distNorm = Math.min(1.0, Math.abs(rt.s) / sMax);
-          const op_speak = Math.sin(distNorm * Math.PI) * 0.92;
-
-          // Calibrating: steady readout opacity
-          const op_calib = 0.65;
-
-          const targetOpacity = (op_idle * wIdle) + (op_think * wThink) + (op_speak * wSpeak) + (op_calib * wCalib);
-
-          // Smoothly blend opacity without jarring visual flickers
-          rt.opacity += (targetOpacity - rt.opacity) * Math.min(delta * 6.0, 1.0);
-
-          const sPos = rt.s;
-          const cx = -sPos * 0.7071;
-          const cy = sPos * 0.7071;
-
-          // Center clearance so lines don't distract from the central core (except outward synthesis)
-          const centerDist = Math.abs(sPos);
-          const centerClearance = (centerDist < 160 && wSpeak < 0.5) ? (0.28 + (centerDist / 160) * 0.72) : 1.0;
-          const finalOpacity = Math.max(0, rt.opacity * centerClearance);
-
-          // Span breathing
-          const span = item.baseSpan + Math.sin(appState.waveTimer * 2.0 + idx) * 12 * appState.pulseAmp;
-          const halfSpan = span / 2;
-
-          const x1 = cx + halfSpan * 0.7071;
-          const y1 = cy + halfSpan * 0.7071;
-          const x2 = cx - halfSpan * 0.7071;
-          const y2 = cy - halfSpan * 0.7071;
-
-          const pElem = document.getElementById(`perp-elem-${item.id}`);
-          const pLine = document.getElementById(`perp-line-${item.id}`);
-          const pHairline = document.getElementById(`perp-hairline-${item.id}`);
-          const pCap1 = document.getElementById(`perp-cap1-${item.id}`);
-          const pCap2 = document.getElementById(`perp-cap2-${item.id}`);
-          const pCross1 = document.getElementById(`perp-cross1-${item.id}`);
-          const pCross2 = document.getElementById(`perp-cross2-${item.id}`);
-          const pText = document.getElementById(`perp-text-${item.id}`);
-
-          if (pElem && pLine) {
-            pElem.setAttribute('opacity', finalOpacity.toFixed(3));
-
-            pLine.setAttribute('x1', x1.toFixed(1));
-            pLine.setAttribute('y1', y1.toFixed(1));
-            pLine.setAttribute('x2', x2.toFixed(1));
-            pLine.setAttribute('y2', y2.toFixed(1));
-
-            const hOff = 3.8;
-            pHairline.setAttribute('x1', (x1 - hOff * 0.7071).toFixed(1));
-            pHairline.setAttribute('y1', (y1 + hOff * 0.7071).toFixed(1));
-            pHairline.setAttribute('x2', (x2 - hOff * 0.7071).toFixed(1));
-            pHairline.setAttribute('y2', (y2 + hOff * 0.7071).toFixed(1));
-
-            pCap1.setAttribute('cx', x1.toFixed(1));
-            pCap1.setAttribute('cy', y1.toFixed(1));
-            pCap2.setAttribute('cx', x2.toFixed(1));
-            pCap2.setAttribute('cy', y2.toFixed(1));
-
-            const crLen = 4.2;
-            pCross1.setAttribute('x1', (x1 - crLen * 0.7071).toFixed(1));
-            pCross1.setAttribute('y1', (y1 + crLen * 0.7071).toFixed(1));
-            pCross1.setAttribute('x2', (x1 + crLen * 0.7071).toFixed(1));
-            pCross1.setAttribute('y2', (y1 - crLen * 0.7071).toFixed(1));
-
-            pCross2.setAttribute('x1', (x2 - crLen * 0.7071).toFixed(1));
-            pCross2.setAttribute('y1', (y2 + crLen * 0.7071).toFixed(1));
-            pCross2.setAttribute('x2', (x2 + crLen * 0.7071).toFixed(1));
-            pCross2.setAttribute('y2', (y2 - crLen * 0.7071).toFixed(1));
-
-            pText.setAttribute('x', (x1 + 6).toFixed(1));
-            pText.setAttribute('y', (y1 + 3).toFixed(1));
-            pText.setAttribute('transform', `rotate(-45 ${x1.toFixed(1)},${y1.toFixed(1)})`);
-
-            if (item.style === 'vernier') {
-              const e1 = document.getElementById(`perp-extra1-${item.id}`);
-              const e2 = document.getElementById(`perp-extra2-${item.id}`);
-              const e3 = document.getElementById(`perp-extra3-${item.id}`);
-              if (e1 && e2 && e3) {
-                const tickLen = 6;
-                const mx1 = cx + (halfSpan * 0.5) * 0.7071;
-                const my1 = cy + (halfSpan * 0.5) * 0.7071;
-                e1.setAttribute('x1', (mx1 - tickLen * 0.7071).toFixed(1));
-                e1.setAttribute('y1', (my1 + tickLen * 0.7071).toFixed(1));
-                e1.setAttribute('x2', (mx1 + tickLen * 0.7071).toFixed(1));
-                e1.setAttribute('y2', (my1 - tickLen * 0.7071).toFixed(1));
-
-                e2.setAttribute('x1', (cx - (tickLen * 1.5) * 0.7071).toFixed(1));
-                e2.setAttribute('y1', (cy + (tickLen * 1.5) * 0.7071).toFixed(1));
-                e2.setAttribute('x2', (cx + (tickLen * 1.5) * 0.7071).toFixed(1));
-                e2.setAttribute('y2', (cy - (tickLen * 1.5) * 0.7071).toFixed(1));
-
-                const mx3 = cx - (halfSpan * 0.5) * 0.7071;
-                const my3 = cy - (halfSpan * 0.5) * 0.7071;
-                e3.setAttribute('x1', (mx3 - tickLen * 0.7071).toFixed(1));
-                e3.setAttribute('y1', (my3 + tickLen * 0.7071).toFixed(1));
-                e3.setAttribute('x2', (mx3 + tickLen * 0.7071).toFixed(1));
-                e3.setAttribute('y2', (my3 - tickLen * 0.7071).toFixed(1));
-              }
-            } else if (item.style === 'bracket') {
-              const b1 = document.getElementById(`perp-bracket1-${item.id}`);
-              const b2 = document.getElementById(`perp-bracket2-${item.id}`);
-              if (b1 && b2) {
-                const brkDepth = 8;
-                const bx1 = (x1 - brkDepth * 0.7071).toFixed(1);
-                const by1 = (y1 + brkDepth * 0.7071).toFixed(1);
-                const bx2 = (x1 + brkDepth * 0.7071).toFixed(1);
-                const by2 = (y1 - brkDepth * 0.7071).toFixed(1);
-                b1.setAttribute('points', `${bx1},${by1} ${x1.toFixed(1)},${y1.toFixed(1)} ${bx2},${by2}`);
-
-                const bx3 = (x2 - brkDepth * 0.7071).toFixed(1);
-                const by3 = (y2 + brkDepth * 0.7071).toFixed(1);
-                const bx4 = (x2 + brkDepth * 0.7071).toFixed(1);
-                const by4 = (y2 - brkDepth * 0.7071).toFixed(1);
-                b2.setAttribute('points', `${bx3},${by3} ${x2.toFixed(1)},${y2.toFixed(1)} ${bx4},${by4}`);
-              }
-            } else if (item.style === 'dual-hairline') {
-              const subLine = document.getElementById(`perp-subline-${item.id}`);
-              if (subLine) {
-                const sep = 7.0;
-                subLine.setAttribute('x1', (x1 + sep * 0.7071).toFixed(1));
-                subLine.setAttribute('y1', (y1 - sep * 0.7071).toFixed(1));
-                subLine.setAttribute('x2', (x2 + sep * 0.7071).toFixed(1));
-                subLine.setAttribute('y2', (y2 - sep * 0.7071).toFixed(1));
-              }
-            } else if (item.style === 'gauge') {
-              const gCenter = document.getElementById(`perp-gauge-center-${item.id}`);
-              const gNeedle = document.getElementById(`perp-gauge-needle-${item.id}`);
-              if (gCenter && gNeedle) {
-                gCenter.setAttribute('cx', cx.toFixed(1));
-                gCenter.setAttribute('cy', cy.toFixed(1));
-                const needleLen = 14;
-                const nAng = appState.waveTimer * 3.5;
-                const nxOff = needleLen * Math.cos(nAng);
-                const nyOff = needleLen * Math.sin(nAng);
-                gNeedle.setAttribute('x1', cx.toFixed(1));
-                gNeedle.setAttribute('y1', cy.toFixed(1));
-                gNeedle.setAttribute('x2', (cx + nxOff).toFixed(1));
-                gNeedle.setAttribute('y2', (cy + nyOff).toFixed(1));
-              }
+            body {
+                font-family: "Inter", sans-serif;
+                background-color: var(--bg-paper);
+                color: var(--text-main);
+                transition:
+                    background-color 0.35s ease,
+                    color 0.35s ease;
             }
-          }
-        });
-      }
+            .font-mono-math {
+                font-family: "Fira Code", monospace;
+            }
+            .dynamic-panel {
+                background-color: var(--panel-bg);
+                border-color: var(--panel-border);
+            }
+            .dynamic-card {
+                background-color: var(--card-bg);
+                border-color: var(--panel-border);
+            }
+            .dynamic-subcard {
+                background-color: var(--card-sub);
+                border-color: var(--panel-border);
+            }
+            ::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: rgba(140, 140, 140, 0.25);
+                border-radius: 3px;
+            }</style><body class="h-[100dvh] w-full overflow-hidden flex flex-col antialiased selection:bg-teal-500/20"><header class="h-14 border-b dynamic-panel backdrop-blur-md px-3 sm:px-5 flex items-center justify-between z-20 shrink-0 shadow-xs"><div class="flex items-center space-x-3 min-w-0"><div class="w-8 h-8 shrink-0 rounded-lg bg-teal-800 text-amber-300 flex items-center justify-center font-mono text-sm font-bold shadow-xs">ΣΔ</div><div class=min-w-0><h1 class="text-sm font-semibold tracking-wide flex items-center gap-2"><span>EUCLID-AVATAR</span> <span class="hidden sm:inline text-[10px] font-mono uppercase px-1.5 py-0.5 rounded border border-teal-500/30 text-teal-600 dark:text-teal-400 bg-teal-500/10">Research v2.0</span></h1><p class="hidden sm:block truncate text-[11px] opacity-70 font-mono">Mathematical Compass & Protractor Kinetic Visualizer</div></div><div class="flex items-center space-x-2 sm:space-x-2.5 text-xs shrink-0"><span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full dynamic-subcard border font-mono"> <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"id=header-status-indicator></span> <span id=header-status-text>STATUS: IDLE</span> </span><button class="px-2.5 sm:px-3 py-1.5 rounded-lg border border-teal-500/30 bg-teal-500/10 hover:bg-teal-500/20 text-teal-700 dark:text-teal-300 font-medium flex items-center gap-1.5 transition-colors"aria-label=Concept id=about-btn><svg class="w-3.5 h-3.5"viewbox="0 0 24 24"fill=none stroke=currentColor><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"stroke-linecap=round stroke-linejoin=round stroke-width=2></path></svg> <span class="hidden sm:inline">Concept</span></button><button class="px-2.5 sm:px-3 py-1.5 rounded-lg border dynamic-subcard font-medium flex items-center gap-1.5 transition-colors"aria-controls=config-panel aria-label=Parameters id=toggle-panel-btn><svg class="w-4 h-4 opacity-70"viewbox="0 0 24 24"fill=none stroke=currentColor><path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"stroke-linecap=round stroke-linejoin=round stroke-width=2></path></svg> <span class="hidden sm:inline">Parameters</span></button></div></header><main class="flex-1 flex overflow-hidden relative"><div class="flex-1 flex flex-col items-center justify-center relative p-3 sm:p-6 select-none overflow-hidden"id=stage-container><div class="absolute top-3 left-3 sm:top-4 sm:left-5 font-mono-math text-[10px] sm:text-[11px] opacity-60 pointer-events-none space-y-1"><div>PIVOT ORIGIN: <span class="text-teal-500 font-medium">O(0.00, 0.00) LOCKED</span></div><div>OUTER PROTRACTOR: <span class="text-teal-500 font-medium"id=telemetry-angle>000.00°</span></div><div>ANGULAR VELOCITY: <span class=text-amber-500 id=telemetry-flux>0.824 rad/s</span></div></div><div class="absolute top-4 right-5 hidden md:block font-mono-math text-[11px] opacity-60 pointer-events-none text-right space-y-1"><div>SATELLITE MOTION: <span class="text-teal-500 font-medium"id=telemetry-mode>SWAY / RESPIRING</span></div><div>VECTOR DEFLECTION: <span class="text-teal-500 font-medium"id=telemetry-cursor>∠000.0°</span></div><div>NORMAL TRANSIT: <span class=opacity-80 id=telemetry-diagonal>±22.0 px • ⟂ active</span></div></div><div class="w-[min(86vw,50dvh)] sm:w-[min(420px,55dvh)] md:w-[min(490px,62dvh)] shrink-0 z-10"id=avatar-wrapper></div><div class="mt-4 md:mt-7 grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-1.5 sm:gap-2 z-10 dynamic-panel backdrop-blur-md p-1.5 rounded-xl border shadow-xs"><button class="state-pill px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium font-mono transition-all opacity-80 hover:opacity-100 hover:bg-slate-500/10"data-state=idle>● IDLE<span class="hidden sm:inline"> (Sway)</span></button><button class="state-pill px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium font-mono transition-all opacity-80 hover:opacity-100 hover:bg-slate-500/10"data-state=thinking>◈ ANALYZING<span class="hidden sm:inline"> (Inflow)</span></button><button class="state-pill px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium font-mono transition-all opacity-80 hover:opacity-100 hover:bg-slate-500/10"data-state=speaking>▲ SYNTHESIS<span class="hidden sm:inline"> (Outward)</span></button><button class="state-pill px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium font-mono transition-all opacity-80 hover:opacity-100 hover:bg-slate-500/10"data-state=calibrating>■ CALIBRATE<span class="hidden sm:inline"> (Hold)</span></button></div><div class="absolute bottom-5 left-5 hidden lg:flex items-center gap-3 p-2.5 rounded-xl dynamic-panel border shadow-xs backdrop-blur-sm z-10"><div class="relative w-11 h-11 rounded-full border border-teal-500/30 overflow-hidden dynamic-subcard flex items-center justify-center p-0.5"><svg class="w-full h-full"viewbox="-300 -300 600 600"id=mini-avatar-svg></svg></div><div class="text-left pr-2"><div class="text-xs font-semibold flex items-center gap-1.5"><span>Euclid Assistant</span><span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span></div><p class="text-[11px] opacity-70 font-mono"id=mini-chat-status>Ready to formulate theorem...</div></div></div><div class="fixed inset-0 z-30 bg-black/40 hidden lg:hidden"id=panel-backdrop></div><aside class="fixed inset-y-0 right-0 z-40 w-[88vw] max-w-sm shadow-xl lg:static lg:z-20 lg:w-96 lg:max-w-none lg:shadow-none border-l dynamic-panel backdrop-blur-md flex flex-col overflow-y-auto shrink-0"id=config-panel><div class="p-4 border-b border-inherit flex items-center justify-between"><div><h2 class="text-sm font-bold uppercase tracking-wider">Avatar Parameters</h2><p class="text-xs opacity-60 font-mono mt-0.5">Euclidean Kinematics & Palettes</div><button class="p-1 rounded-md opacity-60 hover:opacity-100 lg:hidden"id=close-panel-btn><svg class="w-5 h-5"viewbox="0 0 24 24"fill=none stroke=currentColor><path d="M6 18L18 6M6 6l12 12"stroke-linecap=round stroke-linejoin=round stroke-width=2></path></svg></button></div><div class="p-4 space-y-5 flex-1 text-xs"><div><label class="block font-semibold uppercase tracking-wider opacity-80 mb-2 font-mono text-[11px]">Color Themes (Light & Dark)</label><div class="grid grid-cols-2 gap-2"id=palette-buttons><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=blueprint><span class="w-3.5 h-3.5 rounded-full bg-[#0f4c5c] ring-1 ring-white/50 shrink-0"></span> <span class="font-medium text-[11px] truncate">Euclid Teal</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=cad><span class="w-3.5 h-3.5 rounded-full bg-[#1e40af] ring-1 ring-white/50 shrink-0"></span> <span class="font-medium text-[11px] truncate">Cyan Draft</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=solar><span class="w-3.5 h-3.5 rounded-full bg-[#b45309] ring-1 ring-white/50 shrink-0"></span> <span class="font-medium text-[11px] truncate">Solar Amber</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=mono><span class="w-3.5 h-3.5 rounded-full bg-[#27272a] ring-1 ring-white/50 shrink-0"></span> <span class="font-medium text-[11px] truncate">Slate Light</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=darkObsidian><span class="w-3.5 h-3.5 rounded-full bg-[#00f5d4] ring-1 ring-white/30 shrink-0"></span> <span class="font-medium text-[11px] truncate">Obsidian Neon (Dark)</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=darkMidnight><span class="w-3.5 h-3.5 rounded-full bg-[#38bdf8] ring-1 ring-white/30 shrink-0"></span> <span class="font-medium text-[11px] truncate">Midnight Deep (Dark)</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=darkCyber><span class="w-3.5 h-3.5 rounded-full bg-[#fbbf24] ring-1 ring-white/30 shrink-0"></span> <span class="font-medium text-[11px] truncate">Cyber Amber (Dark)</span></button><button class="palette-btn p-2 rounded-lg border text-left flex items-center space-x-2 transition-all"data-palette=darkEmerald><span class="w-3.5 h-3.5 rounded-full bg-[#34d399] ring-1 ring-white/30 shrink-0"></span> <span class="font-medium text-[11px] truncate">Matrix Emerald (Dark)</span></button></div></div><div><label class="block font-semibold uppercase tracking-wider opacity-80 mb-2 font-mono text-[11px]">Central Euclidean Figure</label><div class="grid grid-cols-2 gap-2"id=core-shape-selector><button class="shape-btn active py-2.5 px-3 border border-teal-500/50 dynamic-subcard rounded-lg font-medium text-left transition-all"data-shape=reuleaux><div class="font-semibold text-[11px]">⌒ Reuleaux</div> <div class="text-[10px] opacity-60 font-mono mt-0.5">Constant curve</div></button><button class="shape-btn py-2.5 px-3 border border-inherit dynamic-card rounded-lg font-medium text-left transition-all"data-shape=cross><div class="font-semibold text-[11px]">✛ Graticule</div> <div class="text-[10px] opacity-60 font-mono mt-0.5">Survey crosshair</div></button><button class="shape-btn py-2.5 px-3 border border-inherit dynamic-card rounded-lg font-medium text-left transition-all"data-shape=vesica><div class="font-semibold text-[11px]">⬭ Vesica</div> <div class="text-[10px] opacity-60 font-mono mt-0.5">Euclidean lens</div></button><button class="shape-btn py-2.5 px-3 border border-inherit dynamic-card rounded-lg font-medium text-left transition-all"data-shape=tesseract><div class="font-semibold text-[11px]">⧉ Hypercube</div> <div class="text-[10px] opacity-60 font-mono mt-0.5">4D projection</div></button></div></div><div class=space-y-3><label class="block font-semibold uppercase tracking-wider opacity-80 font-mono text-[11px]">Kinetic Velocity & Satellites</label><div class="flex items-center justify-between opacity-70 font-mono"><span>Stream / Drift Velocity</span><span class=font-bold id=speed-val>1.0x</span></div><input class="w-full h-1.5 bg-slate-300 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-teal-600"id=slider-speed max=3.0 min=0.1 step=0.1 type=range value=1.0><div class="flex items-center justify-between opacity-70 font-mono pt-1"><span>Harmonic Respiration</span><span class=font-bold id=pulse-val>1.0x</span></div><input class="w-full h-1.5 bg-slate-300 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-teal-600"id=slider-pulse max=2.0 min=0 step=0.1 type=range value=1.0><div class="flex items-center justify-between opacity-70 font-mono pt-1"><span>Diagonal Satellite Margin</span><span class=font-bold id=diag-margin-val>22px</span></div><input class="w-full h-1.5 bg-slate-300 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-teal-600"id=slider-diag-margin max=44 min=10 step=1 type=range value=22></div><div><label class="block font-semibold uppercase tracking-wider opacity-80 mb-2 font-mono text-[11px]">Geometric Layer Visibility</label><div class=space-y-2><label class="flex items-center justify-between p-2 rounded-lg dynamic-subcard border cursor-pointer"><span>Diagonal Datum & Satellites</span> <input class="w-4 h-4 rounded text-teal-600 accent-teal-600"checked id=toggle-diagonals type=checkbox></label><label class="flex items-center justify-between p-2 rounded-lg dynamic-subcard border cursor-pointer"><span>Perpendicular Normal Streams (⟂)</span> <input class="w-4 h-4 rounded text-teal-600 accent-teal-600"checked id=toggle-perpendicular type=checkbox></label><label class="flex items-center justify-between p-2 rounded-lg dynamic-subcard border cursor-pointer"><span>Protractor Graduations (0°-360°)</span> <input class="w-4 h-4 rounded text-teal-600 accent-teal-600"checked id=toggle-ticks type=checkbox></label><label class="flex items-center justify-between p-2 rounded-lg dynamic-subcard border cursor-pointer"><span>Greek Symbols & Annotations</span> <input class="w-4 h-4 rounded text-teal-600 accent-teal-600"checked id=toggle-symbols type=checkbox></label><label class="flex items-center justify-between p-2 rounded-lg dynamic-subcard border cursor-pointer"><span>Cursor Tracking Needle</span> <input class="w-4 h-4 rounded text-teal-600 accent-teal-600"checked id=toggle-tracking type=checkbox></label></div></div><div class="pt-2 border-t border-inherit space-y-2"><label class="block font-semibold uppercase tracking-wider opacity-80 font-mono text-[11px]">Export Clean Coaxial SVG</label><div class="flex gap-2"><button class="flex-1 py-2 px-3 rounded-lg bg-teal-800 hover:bg-teal-700 text-white font-medium text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs"id=btn-copy-svg><svg class="w-3.5 h-3.5"viewbox="0 0 24 24"fill=none stroke=currentColor><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"stroke-linecap=round stroke-linejoin=round stroke-width=2></path></svg> <span>Copy Standalone SVG</span></button><button class="py-2 px-3 rounded-lg border dynamic-subcard hover:opacity-80 font-medium text-xs"id=btn-reset>Reset</button></div><div class="text-emerald-500 font-mono text-[10px] text-center hidden"id=copy-feedback>✓ Copied clean concentric SVG to clipboard!</div></div></div><div class="p-3 border-t border-inherit dynamic-subcard font-mono text-[10px] opacity-70 flex justify-between"><span>FPS: <b id=fps-counter>60</b></span><span>ORIGIN: (0,0) LOCKED</span></div></aside></main><div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 hidden opacity-0 transition-opacity duration-200"id=about-modal><div class="dynamic-panel rounded-2xl border max-w-2xl w-full max-h-[88dvh] flex flex-col overflow-hidden transform scale-95 transition-transform duration-200"id=about-modal-box><div class="px-4 sm:px-6 py-4 border-b border-inherit flex items-center justify-between dynamic-subcard"><div class="flex items-center space-x-2.5"><div class="w-7 h-7 rounded-md bg-teal-800 text-amber-300 flex items-center justify-center font-mono text-xs font-bold">ΣΔ</div><div><h3 class="text-sm font-bold">Kinematic Normal Motion System</h3><p class="text-[11px] opacity-70 font-mono">Dynamic AI Cognitive States</div></div><button class="p-1.5 rounded-lg opacity-60 hover:opacity-100 transition-colors"id=close-modal-btn><svg class="w-5 h-5"viewbox="0 0 24 24"fill=none stroke=currentColor><path d="M6 18L18 6M6 6l12 12"stroke-linecap=round stroke-linejoin=round stroke-width=2></path></svg></button></div><div class="px-4 sm:px-6 py-5 overflow-y-auto space-y-4 text-xs opacity-80 leading-relaxed"><div><h4 class="font-mono uppercase tracking-wider font-semibold text-teal-600 dark:text-teal-400 text-[11px] mb-1">01. Perpendicular Lines Dynamic Behavior</h4><p>The perpendicular normal indicators ($\mathbf{n}$) respond dynamically to the assistant's cognitive state:<ul class="list-disc pl-4 space-y-1 mt-1 font-mono text-[11px]"><li><strong>IDLE:</strong> Lines sway back and forth harmonically along the diagonal line, smoothly fading out near extreme turns and fading in.<li><strong>ANALYZING:</strong> Continuous unidirectional stream with wrap-around respawn, depicting incoming data streams.<li><strong>SYNTHESIZING:</strong> Generated outwards from the avatar's center origin, illustrating outgoing information flow.<li><strong>CALIBRATING:</strong> Complete kinetic freeze of satellite lines with zero motion.</ul></div><div><h4 class="font-mono uppercase tracking-wider font-semibold text-teal-600 dark:text-teal-400 text-[11px] mb-1">02. Dual Architectural Themes</h4><p>Seamlessly toggle between daytime parchment drafting palettes and dark fluorescent laboratory themes while retaining mathematical coordinate precision.</div></div><div class="px-4 sm:px-6 py-3.5 border-t border-inherit dynamic-subcard flex items-center justify-between"><span class="font-mono text-[10px] opacity-70">Euclid Assistant Spec</span><button class="px-4 py-1.5 rounded-lg bg-teal-800 hover:bg-teal-700 text-white font-medium text-xs transition-colors"id=modal-ok-btn>Got it</button></div></div></div><script src=./scripts/avatar.js></script><script>// Page chrome colors per palette; the avatar's own colors come from Avatar.palettes.
+            const UI_THEMES = {
+                blueprint: { paper: "#fcfdfd", panelBg: "rgba(255, 255, 255, 0.94)", panelBorder: "#e2e8f0", textMain: "#1e293b", textMuted: "#64748b", cardBg: "#ffffff", cardSub: "#f8fafc", isDark: false },
+                cad: { paper: "#f8fafc", panelBg: "rgba(255, 255, 255, 0.94)", panelBorder: "#e2e8f0", textMain: "#0f172a", textMuted: "#64748b", cardBg: "#ffffff", cardSub: "#f1f5f9", isDark: false },
+                solar: { paper: "#fdfbf7", panelBg: "rgba(255, 255, 255, 0.94)", panelBorder: "#fde68a", textMain: "#451a03", textMuted: "#78350f", cardBg: "#ffffff", cardSub: "#fef3c7", isDark: false },
+                mono: { paper: "#fafafa", panelBg: "rgba(255, 255, 255, 0.94)", panelBorder: "#e4e4e7", textMain: "#18181b", textMuted: "#71717a", cardBg: "#ffffff", cardSub: "#f4f4f5", isDark: false },
+                darkObsidian: { paper: "#0b0f19", panelBg: "rgba(15, 23, 42, 0.92)", panelBorder: "rgba(51, 65, 85, 0.7)", textMain: "#f8fafc", textMuted: "#94a3b8", cardBg: "#1e293b", cardSub: "#0f172a", isDark: true },
+                darkMidnight: { paper: "#030712", panelBg: "rgba(17, 24, 39, 0.92)", panelBorder: "rgba(55, 65, 81, 0.7)", textMain: "#f9fafb", textMuted: "#9ca3af", cardBg: "#1f2937", cardSub: "#111827", isDark: true },
+                darkCyber: { paper: "#121214", panelBg: "rgba(24, 24, 27, 0.92)", panelBorder: "rgba(63, 63, 70, 0.7)", textMain: "#fafafa", textMuted: "#a1a1aa", cardBg: "#27272a", cardSub: "#18181b", isDark: true },
+                darkEmerald: { paper: "#061712", panelBg: "rgba(6, 32, 24, 0.92)", panelBorder: "rgba(16, 78, 58, 0.7)", textMain: "#ecfdf5", textMuted: "#6ee7b7", cardBg: "#092d21", cardSub: "#062018", isDark: true },
+            };
 
-      // 3. COAXIAL KINETIC INTEGRATION
-      switch(appState.status) {
-        case 'idle':
-          angles.outerProtractor = (angles.outerProtractor + 1.8 * delta * speed) % 360;
-          angles.segmentedGears = (angles.segmentedGears - 3.2 * delta * speed) % 360;
-          angles.chevronRing = (angles.chevronRing + 2.4 * delta * speed) % 360;
-          angles.innerProtractor = (angles.innerProtractor - 1.2 * delta * speed) % 360;
-          angles.coreShape = (angles.coreShape + 1.0 * delta * speed) % 360;
-          
-          const breath = 74 + Math.sin(appState.waveTimer * 1.5) * 3 * appState.pulseAmp;
-          corePulseCircle.setAttribute('r', breath.toFixed(2));
-          fxRipple1.setAttribute('opacity', '0');
-          fxRipple2.setAttribute('opacity', '0');
-          break;
+            const STATUS_INFO = {
+                idle: { label: "STATUS: IDLE", color: "bg-emerald-500", chat: "Ready to formulate theorem...", mode: "SWAY / RESPIRING" },
+                thinking: { label: "STATUS: ANALYZING", color: "bg-amber-500", chat: "Computing differential topology...", mode: "UNIDIRECTIONAL INFLOW" },
+                speaking: { label: "STATUS: SYNTHESIS", color: "bg-teal-500", chat: "Transmitting research summary...", mode: "OUTWARD GENERATION" },
+                calibrating: { label: "STATUS: CALIBRATING", color: "bg-rose-500", chat: "Re-aligning Euclidean coordinate origin...", mode: "LOCKED / STATIC HOLD" },
+            };
 
-        case 'thinking':
-          angles.outerProtractor = (angles.outerProtractor + 12.0 * delta * speed) % 360;
-          angles.segmentedGears = (angles.segmentedGears - 18.0 * delta * speed) % 360;
-          angles.chevronRing = (angles.chevronRing + 24.0 * delta * speed) % 360;
-          angles.innerProtractor = (angles.innerProtractor + 16.0 * delta * speed) % 360;
-          angles.coreShape = (angles.coreShape - 9.0 * delta * speed) % 360;
+            const DEFAULT_SETTINGS = { palette: "blueprint", shape: "reuleaux", status: "idle", speed: 1.0, pulse: 1.0, diagMargin: 22 };
+            const LAYER_TOGGLES = { diagonals: "toggle-diagonals", perpendiculars: "toggle-perpendicular", ticks: "toggle-ticks", symbols: "toggle-symbols", tracking: "toggle-tracking" };
+            const SELECTED_CLASSES = ["border-teal-500", "border-2", "ring-1", "ring-teal-500/50"];
+            const PILL_ACTIVE_CLASSES = ["active", "bg-teal-800", "text-white", "shadow-xs"];
+            const PILL_IDLE_CLASSES = ["opacity-80", "hover:opacity-100", "hover:bg-slate-500/10"];
 
-          const thinkBreath = 74 + Math.sin(appState.waveTimer * 6.0) * 4 * appState.pulseAmp;
-          corePulseCircle.setAttribute('r', thinkBreath.toFixed(2));
-          fxRipple1.setAttribute('opacity', '0');
-          fxRipple2.setAttribute('opacity', '0');
-          break;
+            const $ = (id) => document.getElementById(id);
+            const miniSvgAvatar = $("mini-avatar-svg");
+            let currentPalette = DEFAULT_SETTINGS.palette;
+            let avatar = null;
 
-        case 'speaking':
-          angles.outerProtractor = (angles.outerProtractor + 3.0 * delta * speed) % 360;
-          angles.segmentedGears = (angles.segmentedGears + 4.5 * delta * speed) % 360;
-          angles.chevronRing = (angles.chevronRing - 4.0 * delta * speed) % 360;
-          angles.innerProtractor = (angles.innerProtractor + 2.0 * delta * speed) % 360;
+            // The panel is docked from lg up (open by default) and a slide-over drawer below it (closed by default).
+            const desktopQuery = window.matchMedia("(min-width: 1024px)");
 
-          angles.coreShape = Math.sin(appState.waveTimer * 12) * 4 * appState.pulseAmp;
+            function setPanelOpen(open) {
+                $("config-panel").classList.toggle("hidden", !open);
+                $("panel-backdrop").classList.toggle("hidden", !open);
+                $("toggle-panel-btn").setAttribute("aria-expanded", String(open));
+            }
 
-          const rip1 = 78 + ((appState.waveTimer * 60) % 180);
-          const op1 = Math.max(0, 1 - (rip1 - 78) / 180) * 0.7 * appState.pulseAmp;
-          fxRipple1.setAttribute('r', rip1.toFixed(1));
-          fxRipple1.setAttribute('opacity', op1.toFixed(2));
+            setPanelOpen(desktopQuery.matches);
+            desktopQuery.addEventListener("change", (e) => setPanelOpen(e.matches));
 
-          const rip2 = 78 + (((appState.waveTimer * 60) + 90) % 180);
-          const op2 = Math.max(0, 1 - (rip2 - 78) / 180) * 0.6 * appState.pulseAmp;
-          fxRipple2.setAttribute('r', rip2.toFixed(1));
-          fxRipple2.setAttribute('opacity', op2.toFixed(2));
-          break;
+            function highlight(buttons, isActive) {
+                buttons.forEach((btn) => {
+                    const active = isActive(btn);
+                    SELECTED_CLASSES.forEach((c) => btn.classList.toggle(c, active));
+                    btn.classList.toggle("border-inherit", !active);
+                });
+            }
 
-        case 'calibrating':
-          const stepInterval = 0.45 / speed;
-          const stepProgress = (currentTime / 1000) % stepInterval;
-          if (stepProgress < 0.08) {
-            angles.outerProtractor = Math.round(angles.outerProtractor / 15) * 15 + 15;
-            angles.chevronRing = Math.round(angles.chevronRing / 30) * 30 - 30;
-            angles.innerProtractor = Math.round(angles.innerProtractor / 45) * 45 + 45;
-          }
-          fxRipple1.setAttribute('opacity', '0');
-          fxRipple2.setAttribute('opacity', '0');
-          break;
-      }
+            function syncMiniAvatar() {
+                miniSvgAvatar.innerHTML = avatar.svg.innerHTML;
+            }
 
-      // Smooth mouse tracking needle
-      const angleDiff = appState.mouseAngleTarget - appState.currentMouseAngle;
-      let shortestDiff = ((((angleDiff + 180) % 360) + 360) % 360) - 180;
-      appState.currentMouseAngle += shortestDiff * Math.min(delta * 8.0, 1.0);
+            function applyPalette(key) {
+                const ui = UI_THEMES[key] || UI_THEMES.blueprint;
+                const colors = Avatar.palettes[key] || Avatar.palettes.blueprint;
+                currentPalette = key;
 
-      // SVG Rotations centered strictly around origin (0, 0)
-      rotorOuterProtractor.setAttribute('transform', `rotate(${angles.outerProtractor.toFixed(2)})`);
-      rotorSegmentedGears.setAttribute('transform', `rotate(${angles.segmentedGears.toFixed(2)})`);
-      rotorChevronRing.setAttribute('transform', `rotate(${angles.chevronRing.toFixed(2)})`);
-      rotorInnerProtractor.setAttribute('transform', `rotate(${angles.innerProtractor.toFixed(2)})`);
-      rotorCore.setAttribute('transform', `rotate(${angles.coreShape.toFixed(2)})`);
-      
-      if (appState.showTracking) {
-        trackerVectorLayer.setAttribute('transform', `rotate(${appState.currentMouseAngle.toFixed(2)})`);
-      }
+                const vars = {
+                    "--c-teal": colors.teal,
+                    "--c-amber": colors.amber,
+                    "--c-cyan": colors.cyan,
+                    "--c-core-fill": colors.coreFill,
+                    "--bg-paper": ui.paper,
+                    "--panel-bg": ui.panelBg,
+                    "--panel-border": ui.panelBorder,
+                    "--text-main": ui.textMain,
+                    "--text-muted": ui.textMuted,
+                    "--card-bg": ui.cardBg,
+                    "--card-sub": ui.cardSub,
+                };
+                const root = document.documentElement;
+                for (const name in vars) root.style.setProperty(name, vars[name]);
+                root.classList.toggle("dark", ui.isDark);
 
-      // Telemetry readouts
-      const normProtractor = ((angles.outerProtractor % 360) + 360) % 360;
-      telemetryAngle.textContent = `${normProtractor.toFixed(2).padStart(6, '0')}°`;
-      telemetryFlux.textContent = `${(speed * 0.824 + Math.sin(appState.waveTimer) * 0.04).toFixed(3)} rad/s`;
+                avatar.setPalette(key);
+                highlight(document.querySelectorAll("#palette-buttons button"), (btn) => btn.dataset.palette === key);
+                syncMiniAvatar();
+            }
 
-      requestAnimationFrame(animate);
-    }
+            function applyShape(key) {
+                avatar.setShape(key);
+                highlight(document.querySelectorAll("#core-shape-selector .shape-btn"), (btn) => btn.dataset.shape === avatar.shape);
+                syncMiniAvatar();
+            }
 
-    function initializeControls() {
-      document.querySelectorAll('.state-pill').forEach(btn => {
-        btn.addEventListener('click', () => {
-          setAssistantState(btn.dataset.state);
-        });
-      });
+            function renderStatus(status) {
+                document.querySelectorAll(".state-pill").forEach((pill) => {
+                    const active = pill.dataset.state === status;
+                    PILL_ACTIVE_CLASSES.forEach((c) => pill.classList.toggle(c, active));
+                    PILL_IDLE_CLASSES.forEach((c) => pill.classList.toggle(c, !active));
+                });
+                const info = STATUS_INFO[status] || STATUS_INFO.idle;
+                $("header-status-text").textContent = info.label;
+                $("header-status-indicator").className = `w-2 h-2 rounded-full ${info.color} animate-pulse`;
+                $("mini-chat-status").textContent = info.chat;
+                $("telemetry-mode").textContent = info.mode;
+            }
 
-      document.querySelectorAll('#palette-buttons button').forEach(btn => {
-        btn.addEventListener('click', () => {
-          applyPalette(btn.dataset.palette);
-        });
-      });
+            let frameCount = 0;
+            let fpsTimer = 0;
 
-      document.querySelectorAll('#core-shape-selector .shape-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          updateCoreShapePath(btn.dataset.shape);
-        });
-      });
+            function renderTelemetry(frame) {
+                frameCount++;
+                fpsTimer += frame.delta;
+                if (fpsTimer >= 1.0) {
+                    $("fps-counter").textContent = `${frameCount}`;
+                    frameCount = 0;
+                    fpsTimer = 0;
+                }
+                const normProtractor = ((frame.angles.outerProtractor % 360) + 360) % 360;
+                $("telemetry-angle").textContent = `${normProtractor.toFixed(2).padStart(6, "0")}°`;
+                $("telemetry-flux").textContent = `${(avatar.options.speed * 0.824 + Math.sin(frame.waveTimer) * 0.04).toFixed(3)} rad/s`;
+                $("telemetry-cursor").textContent = `∠${frame.pointerAngle.toFixed(1).padStart(5, "0")}°`;
+                $("telemetry-diagonal").textContent = `±${frame.margin.toFixed(1)} px • ⟂ active`;
+            }
 
-      const speedSlider = document.getElementById('slider-speed');
-      const speedVal = document.getElementById('speed-val');
-      speedSlider.addEventListener('input', (e) => {
-        appState.speedMultiplier = parseFloat(e.target.value);
-        speedVal.textContent = `${appState.speedMultiplier.toFixed(1)}x`;
-      });
+            function bindSlider(sliderId, labelId, option, format) {
+                const slider = $(sliderId);
+                const label = $(labelId);
+                const set = (value) => {
+                    slider.value = value;
+                    label.textContent = format(value);
+                    avatar.setOptions({ [option]: value });
+                };
+                slider.addEventListener("input", (e) => set(parseFloat(e.target.value)));
+                return set;
+            }
 
-      const pulseSlider = document.getElementById('slider-pulse');
-      const pulseVal = document.getElementById('pulse-val');
-      pulseSlider.addEventListener('input', (e) => {
-        appState.pulseAmp = parseFloat(e.target.value);
-        pulseVal.textContent = `${appState.pulseAmp.toFixed(1)}x`;
-      });
+            function initializeControls() {
+                document.querySelectorAll(".state-pill").forEach((btn) => {
+                    btn.addEventListener("click", () => avatar.setStatus(btn.dataset.state));
+                });
+                document.querySelectorAll("#palette-buttons button").forEach((btn) => {
+                    btn.addEventListener("click", () => applyPalette(btn.dataset.palette));
+                });
+                document.querySelectorAll("#core-shape-selector .shape-btn").forEach((btn) => {
+                    btn.addEventListener("click", () => applyShape(btn.dataset.shape));
+                });
 
-      const diagMarginSlider = document.getElementById('slider-diag-margin');
-      const diagMarginVal = document.getElementById('diag-margin-val');
-      diagMarginSlider.addEventListener('input', (e) => {
-        appState.diagMarginBase = parseFloat(e.target.value);
-        diagMarginVal.textContent = `${appState.diagMarginBase.toFixed(0)}px`;
-      });
+                const setSpeed = bindSlider("slider-speed", "speed-val", "speed", (v) => `${v.toFixed(1)}x`);
+                const setPulse = bindSlider("slider-pulse", "pulse-val", "pulse", (v) => `${v.toFixed(1)}x`);
+                const setMargin = bindSlider("slider-diag-margin", "diag-margin-val", "diagMargin", (v) => `${v.toFixed(0)}px`);
 
-      document.getElementById('toggle-diagonals').addEventListener('change', (e) => {
-        appState.showDiagonals = e.target.checked;
-        document.getElementById('diag-main-grp').style.display = e.target.checked ? 'block' : 'none';
-        diagSat1Grp.style.display = e.target.checked ? 'block' : 'none';
-        diagSat2Grp.style.display = e.target.checked ? 'block' : 'none';
-      });
+                for (const layer in LAYER_TOGGLES) {
+                    $(LAYER_TOGGLES[layer]).addEventListener("change", (e) => avatar.setLayer(layer, e.target.checked));
+                }
 
-      document.getElementById('toggle-perpendicular').addEventListener('change', (e) => {
-        appState.showPerpendicular = e.target.checked;
-        perpLinesContainer.style.display = e.target.checked ? 'block' : 'none';
-      });
+                $("toggle-panel-btn").addEventListener("click", () => setPanelOpen($("config-panel").classList.contains("hidden")));
+                $("close-panel-btn").addEventListener("click", () => setPanelOpen(false));
+                $("panel-backdrop").addEventListener("click", () => setPanelOpen(false));
 
-      document.getElementById('toggle-ticks').addEventListener('change', (e) => {
-        appState.showTicks = e.target.checked;
-        protractorTicksGroup.style.display = e.target.checked ? 'block' : 'none';
-      });
+                const aboutModal = $("about-modal");
+                const aboutModalBox = $("about-modal-box");
+                const openModal = () => {
+                    aboutModal.classList.remove("hidden");
+                    setTimeout(() => {
+                        aboutModal.classList.remove("opacity-0");
+                        aboutModalBox.classList.remove("scale-95");
+                        aboutModalBox.classList.add("scale-100");
+                    }, 10);
+                };
+                const closeModal = () => {
+                    aboutModal.classList.add("opacity-0");
+                    aboutModalBox.classList.remove("scale-100");
+                    aboutModalBox.classList.add("scale-95");
+                    setTimeout(() => aboutModal.classList.add("hidden"), 200);
+                };
+                $("about-btn").addEventListener("click", openModal);
+                $("close-modal-btn").addEventListener("click", closeModal);
+                $("modal-ok-btn").addEventListener("click", closeModal);
+                aboutModal.addEventListener("click", (e) => {
+                    if (e.target === aboutModal) closeModal();
+                });
+                window.addEventListener("keydown", (e) => {
+                    if (e.key !== "Escape") return;
+                    if (!aboutModal.classList.contains("hidden")) closeModal();
+                    else if (!desktopQuery.matches) setPanelOpen(false);
+                });
 
-      document.getElementById('toggle-symbols').addEventListener('change', (e) => {
-        appState.showSymbols = e.target.checked;
-        document.getElementById('layer-greek-symbols').style.display = e.target.checked ? 'block' : 'none';
-      });
+                const copyFeedback = $("copy-feedback");
+                $("btn-copy-svg").addEventListener("click", () => {
+                    const tempTextarea = document.createElement("textarea");
+                    tempTextarea.value = avatar.toSVGString();
+                    document.body.appendChild(tempTextarea);
+                    tempTextarea.select();
+                    try {
+                        document.execCommand("copy");
+                        copyFeedback.classList.remove("hidden");
+                        setTimeout(() => copyFeedback.classList.add("hidden"), 2500);
+                    } catch (err) {
+                        console.error("Copy failure: ", err);
+                    } finally {
+                        document.body.removeChild(tempTextarea);
+                    }
+                });
 
-      document.getElementById('toggle-tracking').addEventListener('change', (e) => {
-        appState.showTracking = e.target.checked;
-        trackerVectorLayer.style.display = e.target.checked ? 'block' : 'none';
-      });
+                $("btn-reset").addEventListener("click", () => {
+                    applyPalette(DEFAULT_SETTINGS.palette);
+                    applyShape(DEFAULT_SETTINGS.shape);
+                    avatar.setStatus(DEFAULT_SETTINGS.status);
+                    setSpeed(DEFAULT_SETTINGS.speed);
+                    setPulse(DEFAULT_SETTINGS.pulse);
+                    setMargin(DEFAULT_SETTINGS.diagMargin);
+                    for (const layer in LAYER_TOGGLES) {
+                        $(LAYER_TOGGLES[layer]).checked = true;
+                        avatar.setLayer(layer, true);
+                    }
+                });
+            }
 
-      const togglePanelBtn = document.getElementById('toggle-panel-btn');
-      const closePanelBtn = document.getElementById('close-panel-btn');
-      const configPanel = document.getElementById('config-panel');
-
-      togglePanelBtn.addEventListener('click', () => {
-        configPanel.classList.toggle('hidden');
-      });
-
-      closePanelBtn.addEventListener('click', () => {
-        configPanel.classList.add('hidden');
-      });
-
-      const aboutBtn = document.getElementById('about-btn');
-      const aboutModal = document.getElementById('about-modal');
-      const aboutModalBox = document.getElementById('about-modal-box');
-      const closeModalBtn = document.getElementById('close-modal-btn');
-      const modalOkBtn = document.getElementById('modal-ok-btn');
-
-      const openModal = () => {
-        aboutModal.classList.remove('hidden');
-        setTimeout(() => {
-          aboutModal.classList.remove('opacity-0');
-          aboutModalBox.classList.remove('scale-95');
-          aboutModalBox.classList.add('scale-100');
-        }, 10);
-      };
-
-      const closeModal = () => {
-        aboutModal.classList.add('opacity-0');
-        aboutModalBox.classList.remove('scale-100');
-        aboutModalBox.classList.add('scale-95');
-        setTimeout(() => {
-          aboutModal.classList.add('hidden');
-        }, 200);
-      };
-
-      aboutBtn.addEventListener('click', openModal);
-      closeModalBtn.addEventListener('click', closeModal);
-      modalOkBtn.addEventListener('click', closeModal);
-
-      aboutModal.addEventListener('click', (e) => {
-        if (e.target === aboutModal) closeModal();
-      });
-
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !aboutModal.classList.contains('hidden')) {
-          closeModal();
-        }
-      });
-
-      const btnCopySvg = document.getElementById('btn-copy-svg');
-      const copyFeedback = document.getElementById('copy-feedback');
-
-      btnCopySvg.addEventListener('click', () => {
-        const clone = svgAvatar.cloneNode(true);
-        clone.removeAttribute('id');
-        clone.removeAttribute('class');
-        clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        clone.setAttribute('width', '600');
-        clone.setAttribute('height', '600');
-
-        const serializer = new XMLSerializer();
-        let svgStr = serializer.serializeToString(clone);
-
-        const curTheme = PALETTES[appState.palette];
-        svgStr = svgStr
-          .replace(/var\(--c-teal\)/g, curTheme.teal)
-          .replace(/var\(--c-amber\)/g, curTheme.amber)
-          .replace(/var\(--c-cyan\)/g, curTheme.cyan)
-          .replace(/var\(--c-core-fill\)/g, curTheme.coreFill);
-
-        const tempTextarea = document.createElement('textarea');
-        tempTextarea.value = svgStr;
-        document.body.appendChild(tempTextarea);
-        tempTextarea.select();
-        try {
-          document.execCommand('copy');
-          copyFeedback.classList.remove('hidden');
-          setTimeout(() => copyFeedback.classList.add('hidden'), 2500);
-        } catch (err) {
-          console.error('Copy failure: ', err);
-        } finally {
-          document.body.removeChild(tempTextarea);
-        }
-      });
-
-      document.getElementById('btn-reset').addEventListener('click', () => {
-        applyPalette('blueprint');
-        updateCoreShapePath('reuleaux');
-        setAssistantState('idle');
-        speedSlider.value = 1.0;
-        appState.speedMultiplier = 1.0;
-        speedVal.textContent = "1.0x";
-        pulseSlider.value = 1.0;
-        appState.pulseAmp = 1.0;
-        pulseVal.textContent = "1.0x";
-        diagMarginSlider.value = 22;
-        appState.diagMarginBase = 22;
-        diagMarginVal.textContent = "22px";
-        document.getElementById('toggle-diagonals').checked = true;
-        document.getElementById('toggle-perpendicular').checked = true;
-        perpLinesContainer.style.display = 'block';
-      });
-    }
-
-    window.onload = function () {
-      buildProtractorGeometry();
-      applyPalette('blueprint');
-      initializeControls();
-      syncMiniAvatar();
-      requestAnimationFrame(animate);
-    };</script>
+            window.addEventListener("load", function () {
+                avatar = Avatar.create("#avatar-wrapper", {
+                    stage: "#stage-container",
+                    pointerArea: "#stage-container",
+                    palette: DEFAULT_SETTINGS.palette,
+                    shape: DEFAULT_SETTINGS.shape,
+                    status: DEFAULT_SETTINGS.status,
+                    autoplay: false,
+                    calibrateOnClick: false,
+                    onStatusChange: renderStatus,
+                    onFrame: renderTelemetry,
+                });
+                applyPalette(DEFAULT_SETTINGS.palette);
+                applyShape(DEFAULT_SETTINGS.shape);
+                initializeControls();
+            });</script>
